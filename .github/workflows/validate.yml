@@ -1,0 +1,34 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v7.0.0
+      - name: Validate shell syntax
+        run: bash -n scripts/*.sh
+      - name: Validate repository
+        run: bash scripts/validate-repo.sh
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v7.0.0
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $errors = $null
+          Get-ChildItem scripts/*.ps1 | ForEach-Object {
+            [void][Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$errors)
+            if ($errors) { $errors; exit 1 }
+          }
+      - name: Validate repository
+        shell: pwsh
+        run: ./scripts/validate-repo.ps1

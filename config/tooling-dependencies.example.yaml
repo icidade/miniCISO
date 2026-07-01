@@ -1,0 +1,65 @@
+version: 1
+repo_role: miniciso-overlay
+
+core_runtime:
+  python: "3.11+"
+  uv: required
+  git: required
+  hermes_agent: required
+
+hermes_expectations:
+  toolsets:
+    - terminal
+    - file
+    - web
+    - skills
+    - memory
+    - session_search
+    - delegation
+    - todo
+  profiles:
+    - chief-of-staff
+    - security-threat-modeling
+    - security-architecture
+    - security-code-review
+    - security-appsec-assessment
+    - security-compliance-mapper
+    - security-offensive-security
+    - security-recon-attack-surface-strategist
+    - security-qa
+
+external_tools:
+  bigua_analyzer:
+    enabled: optional
+    purpose: "Structural OSS evidence for MiniCISO and supply-chain reviews"
+    install_strategy: "isolated uv-managed clone"
+    secret_handling: "no repo secrets; configure locally if needed"
+  headroom:
+    enabled: optional
+    purpose: "Token-saving compression helper for large artifacts"
+    install_strategy: "isolated/manual canary first"
+    secret_handling: "no repo secrets"
+    rollout_mode: "phase-gated and reversible"
+  projectdiscovery_cloud:
+    enabled: optional
+    purpose: "Passive discovery support for authorized external inventory"
+    install_strategy: "local CLI/API config outside repo"
+    secret_handling: "configure outside repo"
+  supply_chain_scanners:
+    enabled: optional
+    members:
+      - trivy
+      - grype
+      - syft
+      - semgrep
+      - codeql
+
+policy:
+  keep_out_of_repo:
+    - api_keys
+    - auth_state
+    - logs
+    - sessions
+    - memories
+    - live_env_files
+  promotion_rule: "docs first, then controlled sync into live Hermes home"

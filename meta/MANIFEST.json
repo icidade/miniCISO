@@ -1,0 +1,30 @@
+{
+  "package": "miniCISO",
+  "repository": "https://github.com/icidade/miniCISO",
+  "runtime": {
+    "repository": "https://github.com/NousResearch/hermes-agent",
+    "tag": "v2026.6.19",
+    "commit": "2bd1977d8fad185c9b4be47884f7e87f1add0ce3"
+  },
+  "sanitized": true,
+  "included_profiles": [
+    "chief-of-staff",
+    "security-threat-modeling",
+    "security-architecture",
+    "security-code-review",
+    "security-appsec-assessment",
+    "security-compliance-mapper",
+    "security-offensive-security",
+    "security-recon-attack-surface-strategist",
+    "security-qa"
+  ],
+  "excluded": [
+    "secret files",
+    "logs",
+    "sessions",
+    "memories",
+    "cron output",
+    "non-security profile material",
+    "provider credentials"
+  ]
+}

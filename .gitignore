@@ -1,0 +1,40 @@
+__MACOSX/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local/runtime state
+.env
+.env.*
+!.env.example
+*.log
+*.sqlite
+*.sqlite3
+*.db
+.hermes/
+miniciso-security/
+reports/
+
+# Python and tooling caches
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+known_hosts
+
+# Hermes runtime/private state
+sessions/
+memories/
+logs/
+auth_state/
+*.pre-miniciso
