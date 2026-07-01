@@ -37,13 +37,13 @@ foreach ($profile in $profiles) {
 $versionPath = Join-Path $repoRoot 'config/hermes-version.env'
 if (Test-Path -LiteralPath $versionPath) {
     $versionText = Get-Content -LiteralPath $versionPath -Raw -Encoding UTF8
-    if ($versionText -notmatch '(?m)^HERMES_TAG=v\d{4}\.\d{1,2}\.\d{1,2}$') {
+    if ($versionText -notmatch '(?m)^HERMES_TAG=v\d{4}\.\d{1,2}\.\d{1,2}\r?$') {
         Add-ValidationError 'HERMES_TAG não tem o formato esperado.'
     }
-    if ($versionText -notmatch '(?m)^HERMES_COMMIT=[0-9a-f]{40}$') {
+    if ($versionText -notmatch '(?m)^HERMES_COMMIT=[0-9a-f]{40}\r?$') {
         Add-ValidationError 'HERMES_COMMIT deve ser um SHA Git completo.'
     }
-    if (($versionText | Select-String -Pattern '(?m)^HERMES_INSTALL_(PS1|SH)_SHA256=[A-F0-9]{64}$' -AllMatches).Matches.Count -ne 2) {
+    if (($versionText | Select-String -Pattern '(?m)^HERMES_INSTALL_(PS1|SH)_SHA256=[A-F0-9]{64}\r?$' -AllMatches).Matches.Count -ne 2) {
         Add-ValidationError 'Os dois checksums de instalador devem ser SHA-256 completos.'
     }
 }
