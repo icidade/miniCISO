@@ -5,7 +5,7 @@ This document defines the core MiniCISO operating model and report discipline fo
 ## Operating model
 
 ```text
-Usuário → MiniCISO → SME Especializado → Security QA → MiniCISO → Usuário
+User → MiniCISO → Specialized SME → Security QA → MiniCISO → User
 ```
 
 ## Coordinator
@@ -42,7 +42,7 @@ No final report should be delivered without a pass through `security-qa`.
 Drafts should be marked as:
 
 ```text
-DRAFT - pendente de QA
+DRAFT - pending QA
 ```
 
 ## Scope and safety boundaries

@@ -24,7 +24,7 @@ Used only for specific workflows. These should be documented and enabled deliber
 
 ## External tooling catalog
 
-### Biguá Analyzer
+### Bigua Analyzer
 **Purpose:** external structural OSS evidence source for repository health, contributor concentration, bus factor, release rhythm, and AI-influence interpretation.
 
 **Use cases:**
@@ -45,7 +45,7 @@ env -u VIRTUAL_ENV uv pip install -e .
 env -u VIRTUAL_ENV uv run bigua-analyzer --help
 ```
 
-**Operational note:** treat Biguá as an evidence source, not a security verdict.
+**Operational note:** treat Bigua as an evidence source, not a security verdict.
 
 ### Headroom
 **Purpose:** optional token-saving / compression helper for large artifacts.

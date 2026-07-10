@@ -12,14 +12,14 @@ templates/*
   -> ~/miniciso-security/templates/*
 
 config/hermes-version.env
-  -> input imutável para o instalador oficial do Hermes
+  -> immutable input for the official Hermes installer
 ```
 
-Os diretórios `inputs`, `drafts`, `qa`, `reports` e `templates` são criados em `~/miniciso-security` (ou no caminho configurado no bootstrap).
+The `inputs`, `drafts`, `qa`, `reports`, and `templates` directories are created under `~/miniciso-security` (or the path configured in bootstrap).
 
 ## Chief of staff
 
-`chief-of-staff` é um perfil nomeado dedicado, não o perfil padrão do Hermes. Por isso seu `SOUL.md` completo é gerenciado pelo overlay. O snippet em `chief-of-staff/` permanece apenas como referência para quem preferir uma integração manual.
+`chief-of-staff` is a dedicated named profile, not the default Hermes profile. For that reason, its full `SOUL.md` is managed by the overlay. The snippet in `chief-of-staff/` remains only as a reference for users who prefer manual integration.
 
 ## Public runtime exports
 
@@ -31,4 +31,4 @@ config/chief-of-staff.public.yaml
   -> sanitized reference snapshot of non-secret live configuration
 ```
 
-Use `scripts/export_safe_self_state.py --apply` para atualizar esses artefatos a partir da VPS, sempre com revisão manual do diff antes de commit/push.
+Use `scripts/export_safe_self_state.py --apply` to refresh those artifacts from the VPS, always with manual diff review before commit/push.

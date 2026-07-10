@@ -1,14 +1,14 @@
-# Instalação e restauração
+# Installation and restoration
 
-## Pré-requisitos
+## Prerequisites
 
 - Git
-- acesso HTTPS ao GitHub e aos endpoints usados pelo instalador oficial do Hermes
-- uma credencial válida para ao menos um provedor/modelo suportado pelo Hermes
+- HTTPS access to GitHub and the endpoints used by the official Hermes installer
+- a valid credential for at least one Hermes-supported provider/model
 
-Python, `uv`, Node.js e as demais dependências do runtime são administrados pelo instalador oficial fixado pelo projeto.
+Python, `uv`, Node.js, and the remaining runtime dependencies are managed by the official installer pinned by the project.
 
-## Instalação limpa
+## Clean installation
 
 Windows:
 
@@ -18,7 +18,7 @@ cd miniCISO
 .\scripts\bootstrap.ps1
 ```
 
-Linux, macOS ou WSL2:
+Linux, macOS, or WSL2:
 
 ```bash
 git clone https://github.com/icidade/miniCISO.git
@@ -26,46 +26,46 @@ cd miniCISO
 ./scripts/bootstrap.sh
 ```
 
-O setup do provedor é interativo porque as credenciais não pertencem ao Git. Para preparar somente arquivos/perfis em um ambiente já configurado, use `-SkipProviderSetup` no PowerShell ou `--skip-provider-setup` no Bash.
+Provider setup is interactive because credentials do not belong in Git. To prepare only files/profiles in an already configured environment, use `-SkipProviderSetup` in PowerShell or `--skip-provider-setup` in Bash.
 
-## O que é reproduzível
+## What is reproducible
 
-- upstream, tag e commit do Hermes
-- checksum dos instaladores upstream
-- nomes e prompts dos perfis
-- estrutura do workspace
-- backend e diretório de trabalho do terminal
-- testes estruturais e smoke tests
+- Hermes upstream tag and commit
+- upstream installer checksums
+- profile names and prompts
+- workspace structure
+- terminal backend and working directory
+- structural tests and smoke tests
 
-Credenciais, tokens, sessões, memórias e relatórios são estado local deliberadamente não reproduzido pelo repositório.
+Credentials, tokens, sessions, memories, and reports are local state intentionally not reproduced by the repository.
 
-## Atualização do overlay
+## Updating the overlay
 
 ```bash
 git pull --ff-only
 ./scripts/bootstrap.sh --skip-hermes-install --skip-provider-setup
 ```
 
-No Windows:
+On Windows:
 
 ```powershell
 git pull --ff-only
 .\scripts\bootstrap.ps1 -SkipHermesInstall -SkipProviderSetup
 ```
 
-O bootstrap cria uma cópia `.pre-miniciso` antes de substituir um `SOUL.md` diferente já existente.
+The bootstrap creates a `.pre-miniciso` copy before replacing an existing different `SOUL.md`.
 
-## Atualização do Hermes
+## Updating Hermes
 
-Não use uma branch flutuante. Atualize `config/hermes-version.env` com uma release oficial, seu commit resolvido e os hashes dos dois instaladores. Depois execute as validações e teste uma restauração limpa.
+Do not use a floating branch. Update `config/hermes-version.env` with an official release, its resolved commit, and the hashes of both installers. Then run the validations and test a clean restoration.
 
 ## Rollback
 
-1. faça checkout de um commit anterior deste repo;
-2. execute novamente o bootstrap;
-3. restaure um eventual `SOUL.md.pre-miniciso` apenas se quiser abandonar o prompt gerenciado pelo overlay.
+1. check out a previous commit from this repo;
+2. run bootstrap again;
+3. restore any `SOUL.md.pre-miniciso` only if you want to stop using the overlay-managed prompt.
 
-## Verificação
+## Verification
 
 ```powershell
 .\scripts\validate-repo.ps1
@@ -77,10 +77,10 @@ Não use uma branch flutuante. Atualize `config/hermes-version.env` com uma rele
 ./scripts/smoke-test.sh
 ```
 
-O smoke test online é opcional e exige credenciais: `.\scripts\smoke-test.ps1 -Online` ou `./scripts/smoke-test.sh --online`.
+The online smoke test is optional and requires credentials: `.\scripts\smoke-test.ps1 -Online` or `./scripts/smoke-test.sh --online`.
 
-## Limitações
+## Limitations
 
-- O catálogo PDF é um artefato documental e não participa da execução.
-- Ferramentas externas listadas em `config/tooling-dependencies.example.yaml` são opcionais.
-- O backend local dá aos perfis acesso ao host; use Docker/SSH/Singularity se seu modelo de ameaça exigir isolamento.
+- The PDF catalog is a documentation artifact and is not part of runtime execution.
+- External tools listed in `config/tooling-dependencies.example.yaml` are optional.
+- The local backend gives profiles access to the host; use Docker/SSH/Singularity if your threat model requires isolation.

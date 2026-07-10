@@ -1,41 +1,41 @@
 # Self-update capability (public/safe overlay)
 
-Esta capability existe para manter o repositório público `miniCISO` alinhado com a instância viva da VPS **sem copiar estado privado**.
+This capability exists to keep the public `miniCISO` repository aligned with the live VPS instance **without copying private state**.
 
-## Objetivo
+## Goal
 
-Gerar uma cópia pública e segura de:
+Generate a public and safe copy of:
 
-- tools locais do Headroom/KAG que façam sentido como overlay público;
-- snapshot sanitizado de configuração não secreta do perfil `chief-of-staff`;
-- documentação metodológica não confidencial.
+- local Headroom/KAG tools that make sense as public overlay assets;
+- a sanitized snapshot of the `chief-of-staff` profile's non-secret configuration;
+- non-confidential methodology documentation.
 
-## O que entra
+## What is included
 
-Atualmente o export seguro cobre:
+The current safe export covers:
 
 - `tools/headroom_phase1/*.py`
 - `tools/headroom_phase1/tests/test_*.py`
 - `config/chief-of-staff.public.yaml`
 
-## O que fica de fora
+## What stays out
 
-Nunca exportar:
+Never export:
 
 - `.env`, `.env.*`, tokens, PATs, API keys
-- `auth.json`, `hosts.yml`, cookies, credenciais do `gh`
-- memórias, sessões, logs, cron output
-- artefatos raw de assessment
-- referências a programas BBP específicos em andamento
-- findings, triage notes, evidência sensível
+- `auth.json`, `hosts.yml`, cookies, `gh` credentials
+- memories, sessions, logs, cron output
+- raw assessment artifacts
+- references to specific active BBP programs
+- findings, triage notes, or sensitive evidence
 
-## Script de export
+## Export script
 
-O export atual é **allowlisted + scanned + reviewed-by-diff**:
+The current export is **allowlisted + scanned + reviewed-by-diff**:
 
-- só copia um conjunto fixo de arquivos públicos do Headroom/KAG;
-- faz bloqueio se detectar padrões suspeitos de segredo/estado operacional;
-- ainda exige revisão humana do `git diff` antes de commit/push.
+- it copies only a fixed set of public Headroom/KAG files;
+- it blocks if suspicious secret or operational-state patterns are detected;
+- it still requires human review of `git diff` before commit/push.
 
 Use:
 
@@ -43,13 +43,13 @@ Use:
 python3 scripts/export_safe_self_state.py
 ```
 
-Modo apply:
+Apply mode:
 
 ```bash
 python3 scripts/export_safe_self_state.py --apply
 ```
 
-Também é possível apontar fontes explícitas:
+You can also point to explicit sources:
 
 ```bash
 python3 scripts/export_safe_self_state.py \
@@ -58,21 +58,21 @@ python3 scripts/export_safe_self_state.py \
   --apply
 ```
 
-## Fluxo recomendado de atualização
+## Recommended update flow
 
-1. Rodar o export seguro.
-2. Revisar `git diff` no repo público.
-3. Rodar `./scripts/validate-repo.sh`.
-4. Rodar testes dos tools públicos, quando aplicável.
-5. Commitar em branch própria.
-6. Abrir PR.
+1. Run the safe export.
+2. Review `git diff` in the public repo.
+3. Run `./scripts/validate-repo.sh`.
+4. Run public tool tests when applicable.
+5. Commit on a dedicated branch.
+6. Open a PR.
 
-## Critério de inclusão
+## Inclusion criteria
 
-Antes de promover algo do runtime vivo para o repo público, confirmar:
+Before promoting something from the live runtime into the public repo, confirm that it:
 
-- é reproduzível;
-- é genericamente útil;
-- não revela segredo ou contexto privado;
-- não depende de um programa/engagement específico em andamento;
-- ainda faz sentido fora da VPS atual.
+- is reproducible;
+- is generally useful;
+- does not reveal secrets or private context;
+- does not depend on a specific active program/engagement;
+- still makes sense outside the current VPS.

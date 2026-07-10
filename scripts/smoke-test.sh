@@ -18,7 +18,7 @@ for profile in "${profiles[@]}"; do
   [[ -f "$HOME/.hermes/profiles/$profile/SOUL.md" ]] || { echo "SOUL.md not installed: $profile" >&2; exit 1; }
   echo "OK: $profile"
   if [[ "$ONLINE" == true ]]; then
-    hermes -p "$profile" chat -Q -q 'Responda em uma linha começando com OK e informe seu papel no MiniCISO.'
+    hermes -p "$profile" chat -Q -q 'Answer in one line starting with OK and state your role in MiniCISO.'
   fi
 done
 

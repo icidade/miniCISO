@@ -1,89 +1,90 @@
 # GitHub PR access from the VPS
 
-Este documento descreve o acesso mínimo necessário para o agente abrir branches e PRs no repositório público `icidade/miniCISO`.
+This document describes the minimum access needed for the agent to open branches and PRs in the public `icidade/miniCISO` repository.
 
-## Recomendação
+## Recommendation
 
-Prefira **Fine-grained Personal Access Token**.
+Prefer a **fine-grained personal access token**.
 
-### Fine-grained PAT recomendado
+### Recommended fine-grained PAT
 
 - **Repository access**: `Only select repositories`
-- Repositório: `icidade/miniCISO`
+- Repository: `icidade/miniCISO`
 
-Permissões mínimas:
+Minimum permissions:
 
 - **Contents**: `Read and write`
 - **Pull requests**: `Read and write`
 - **Metadata**: `Read-only`
 
-Isso basta para:
+That is enough to:
 
-- clonar/consultar via API autenticada;
-- criar branch;
+- clone or query through the authenticated API;
+- create a branch;
 - push;
-- abrir PR com `gh pr create`.
+- open a PR via `gh pr create` or the GitHub API.
 
-> Se o PR também alterar arquivos de workflow do GitHub Actions (por exemplo `.github/workflows/*`), podem ser necessárias permissões adicionais além do mínimo acima.
+> If the PR also changes GitHub Actions workflow files (for example `.github/workflows/*`), additional permissions beyond this minimum may be required.
 
-### Fallback: Classic PAT
+### Fallback: classic PAT
 
-Se usar classic PAT no lugar do fine-grained:
+If you use a classic PAT instead of a fine-grained one:
 
-- para repo público, o mínimo prático costuma ser `public_repo`;
-- se no futuro o repo ficar privado, usar `repo`.
+- for a public repo, the practical minimum is usually `public_repo`;
+- if the repo becomes private in the future, use `repo`.
 
-## Onde guardar na VPS
+## Where to store it on the VPS
 
-### Opção recomendada para o Hermes profile
+### Recommended option for the Hermes profile
 
-Guardar fora do repo, no profile ativo:
+Store it outside the repo, in the active profile:
 
 ```bash
 /home/vpsadmin/.hermes/profiles/chief-of-staff/.env
 ```
 
-Adicionar:
+Add:
 
 ```bash
-GH_TOKEN=<seu_pat>
+GITHUB_TOKEN=<your_pat>
 ```
 
-Opcionalmente também:
+Then restart the session/gateway that runs this profile.
+
+### Optional `gh` CLI flow
+
+If `gh` is installed and the token is already in the environment:
 
 ```bash
-GITHUB_TOKEN=<seu_pat>
-```
-
-Depois reiniciar a sessão/gateway que executa esse profile.
-
-### Opção via gh CLI (persistência do cliente GitHub)
-
-Com o token no ambiente:
-
-```bash
-gh auth login --with-token <<< "$GH_TOKEN"
+gh auth login --with-token <<< "$GITHUB_TOKEN"
 gh auth setup-git
 gh auth status
 ```
 
-Isso grava a autenticação do `gh` fora do repo (tipicamente em `~/.config/gh/hosts.yml`) e configura integração com `git` para push por HTTPS.
+This stores `gh` authentication outside the repo (typically in `~/.config/gh/hosts.yml`) and configures Git integration for HTTPS push.
 
-## Como verificar
+## How to verify
+
+If `gh` is installed:
 
 ```bash
 gh auth status
+```
+
+Always valid:
+
+```bash
 git -C /home/vpsadmin/miniCISO remote -v
 git -C /home/vpsadmin/miniCISO ls-remote origin
 ```
 
-Se quiser validar a API diretamente:
+To validate the API directly:
 
 ```bash
 python3 - <<'PY'
 import os, urllib.request, json
 req = urllib.request.Request('https://api.github.com/user')
-req.add_header('Authorization', f"token {os.environ['GH_TOKEN']}")
+req.add_header('Authorization', f"token {os.environ['GITHUB_TOKEN']}")
 with urllib.request.urlopen(req, timeout=30) as r:
     print(r.status)
     print(r.headers.get('X-OAuth-Scopes', ''))
@@ -91,20 +92,26 @@ with urllib.request.urlopen(req, timeout=30) as r:
 PY
 ```
 
-## Fluxo de PR depois da credencial pronta
+## PR flow after the credential is ready
+
+### With `gh`
 
 ```bash
 cd /home/vpsadmin/miniCISO
-git checkout -b chore/minha-mudanca
-# editar / exportar / validar
+git checkout -b chore/my-change
+# edit / export / validate
 git add -A
 git commit -m "docs: update miniCISO public overlay"
-git push -u origin chore/minha-mudanca
+git push -u origin chore/my-change
 gh pr create --fill
 ```
 
-## Não fazer
+### Without `gh`
 
-- não salvar o PAT dentro do repositório;
-- não commitar `.env`, `hosts.yml`, ou qualquer arquivo de auth;
-- não reaproveitar um token com escopo maior do que o necessário.
+Use `git push` plus the GitHub API with `GITHUB_TOKEN`.
+
+## Do not
+
+- do not store the PAT inside the repository;
+- do not commit `.env`, `hosts.yml`, or any auth file;
+- do not reuse a token with broader scope than necessary.
