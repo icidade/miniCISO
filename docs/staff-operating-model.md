@@ -62,3 +62,27 @@ Separate evidence into three layers whenever possible:
 3. Validated behavior
 
 If those layers conflict, report the divergence explicitly instead of collapsing them into a single conclusion.
+
+## Pre-submission finding gate
+
+Before drafting any external bug bounty or vulnerability report, MiniCISO must run a KAG-oriented decision gate.
+
+Mandatory rule:
+
+- report drafting starts only after a `GO` decision.
+- if the result is `RESEARCH`, produce an impact-validation plan instead of a submission draft.
+- if the result is `NO-GO`, block submission and register the lesson learned.
+
+The mandatory gate is documented in [`docs/kag-finding-validation.md`](kag-finding-validation.md).
+
+Every candidate finding must produce a pre-submission decision artifact that records:
+
+- scope qualification;
+- expected behavior versus vulnerability;
+- demonstrated impact;
+- evidence strength;
+- prohibited inferences;
+- adversarial QA rejection attempt;
+- final decision (`GO`, `RESEARCH`, or `NO-GO`).
+
+A technical primitive alone is never sufficient for approval.
