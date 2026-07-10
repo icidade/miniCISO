@@ -88,6 +88,16 @@ python3 scripts/export_safe_self_state.py --apply
 ./scripts/validate-repo.sh
 ```
 
+## External finding workflow
+
+For bug bounty / external vulnerability work:
+
+- no external report draft should start before a `GO` decision;
+- `RESEARCH` means produce a safe impact-validation plan, not a submission draft;
+- `NO-GO` means block submission and register the lesson learned.
+
+See [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md) and [`templates/finding-decision-template.md`](templates/finding-decision-template.md).
+
 ## Documentation
 
 - [`INSTALL.md`](INSTALL.md): installation, updates, rollback, and limitations
@@ -95,6 +105,7 @@ python3 scripts/export_safe_self_state.py --apply
 - [`docs/profile-setup.md`](docs/profile-setup.md): profile contract
 - [`docs/dependencies-and-configuration.md`](docs/dependencies-and-configuration.md): optional dependencies
 - [`docs/headroom-kag-selective-retrieval.md`](docs/headroom-kag-selective-retrieval.md): public architecture for the Headroom + KAG track
+- [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md): pre-submission KAG gate for finding validation
 - [`docs/self-update-capability.md`](docs/self-update-capability.md): public export/sync capability
 - [`docs/github-pr-access.md`](docs/github-pr-access.md): minimal PAT and credential setup on the VPS
 - [`miniciso-staff-service-catalog-v4-full.pdf`](miniciso-staff-service-catalog-v4-full.pdf): service catalog
