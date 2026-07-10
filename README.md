@@ -108,7 +108,8 @@ See [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md) and [`tem
 - [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md): pre-submission KAG gate for finding validation
 - [`docs/self-update-capability.md`](docs/self-update-capability.md): public export/sync capability
 - [`docs/github-pr-access.md`](docs/github-pr-access.md): minimal PAT and credential setup on the VPS
-- [`miniciso-staff-service-catalog-v4-full.pdf`](miniciso-staff-service-catalog-v4-full.pdf): service catalog
+- [`miniciso-staff-service-catalog-v5.md`](miniciso-staff-service-catalog-v5.md): service catalog source
+- [`miniciso-staff-service-catalog-v5-full.pdf`](miniciso-staff-service-catalog-v5-full.pdf): service catalog PDF
 
 ## License
 
