@@ -12,7 +12,7 @@ fail() {
 
 required_files=(
   README.md INSTALL.md LICENSE SECURITY.md .env.example
-  config/hermes-version.env config/tooling-dependencies.example.yaml
+  config/hermes-version.env config/tooling-dependencies.example.yaml config/chief-of-staff.public.yaml
   scripts/bootstrap.ps1 scripts/bootstrap.sh
   scripts/smoke-test.ps1 scripts/smoke-test.sh
   scripts/validate-repo.ps1 scripts/validate-repo.sh
@@ -61,5 +61,30 @@ if [[ $errors -ne 0 ]]; then
   echo "Validation failed with $errors error(s)." >&2
   exit 1
 fi
+
+if python3 -c 'import yaml' >/dev/null 2>&1; then
+  python3 - <<'PY' "$REPO_ROOT/config/chief-of-staff.public.yaml" || fail 'invalid config/chief-of-staff.public.yaml'
+import pathlib
+import sys
+import yaml
+path = pathlib.Path(sys.argv[1])
+yaml.safe_load(path.read_text(encoding='utf-8'))
+PY
+fi
+
+if [[ -d "$REPO_ROOT/tools/headroom_phase1" ]]; then
+  while IFS= read -r -d '' pyfile; do
+    python3 -m py_compile "$pyfile" || fail "python syntax error: ${pyfile#"$REPO_ROOT/"}"
+  done < <(find "$REPO_ROOT/tools/headroom_phase1" -type f -name '*.py' -print0)
+  PYTHONPATH="$REPO_ROOT/tools/headroom_phase1${PYTHONPATH:+:$PYTHONPATH}" \
+    python3 -m unittest discover -s "$REPO_ROOT/tools/headroom_phase1/tests" -p 'test_*.py' >/dev/null \
+    || fail 'headroom_phase1 tests failed'
+fi
+
+if [[ $errors -ne 0 ]]; then
+  echo "Validation failed with $errors error(s)." >&2
+  exit 1
+fi
+
 
 echo "OK: valid structure, ${#profiles[@]} profiles, and basic secret checks."

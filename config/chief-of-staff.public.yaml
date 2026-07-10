@@ -1,0 +1,75 @@
+generated_from: chief-of-staff/config.yaml
+sanitized: true
+profile: chief-of-staff
+model:
+  provider: openai-codex
+  default: gpt-5.4
+  temperature: 0.2
+toolsets:
+- hermes-cli
+agent:
+  max_turns: 90
+  tool_use_enforcement: auto
+  task_completion_guidance: true
+  environment_probe: true
+  gateway_timeout: 1800
+  gateway_timeout_warning: 900
+  clarify_timeout: 600
+  reasoning_effort: medium
+terminal:
+  backend: local
+  cwd: .
+  timeout: 180
+  persistent_shell: true
+  auto_source_bashrc: true
+web:
+  backend: ''
+  search_backend: ''
+  extract_backend: ''
+browser:
+  engine: auto
+  allow_private_urls: false
+  auto_local_for_private_urls: true
+  inactivity_timeout: 120
+  command_timeout: 30
+  dialog_policy: must_respond
+  dialog_timeout_s: 300
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 20
+  protect_first_n: 3
+auxiliary:
+  vision:
+    provider: auto
+    model: ''
+    timeout: 120
+  web_extract:
+    provider: auto
+    model: ''
+    timeout: 360
+  compression:
+    provider: auto
+    model: ''
+    timeout: 120
+  skills_hub:
+    provider: auto
+    model: ''
+    timeout: 30
+  approval:
+    provider: auto
+    model: ''
+    timeout: 30
+  mcp:
+    provider: auto
+    model: ''
+    timeout: 30
+  title_generation:
+    provider: auto
+    model: ''
+    timeout: 30
+  triage_specifier:
+    provider: auto
+    model: ''
+    timeout: 120

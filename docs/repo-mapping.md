@@ -20,3 +20,15 @@ Os diretórios `inputs`, `drafts`, `qa`, `reports` e `templates` são criados em
 ## Chief of staff
 
 `chief-of-staff` é um perfil nomeado dedicado, não o perfil padrão do Hermes. Por isso seu `SOUL.md` completo é gerenciado pelo overlay. O snippet em `chief-of-staff/` permanece apenas como referência para quem preferir uma integração manual.
+
+## Public runtime exports
+
+```text
+tools/headroom_phase1/*
+  -> repo-side public operator tooling (not auto-synced into Hermes home)
+
+config/chief-of-staff.public.yaml
+  -> sanitized reference snapshot of non-secret live configuration
+```
+
+Use `scripts/export_safe_self_state.py --apply` para atualizar esses artefatos a partir da VPS, sempre com revisão manual do diff antes de commit/push.

@@ -61,6 +61,24 @@ env -u VIRTUAL_ENV uv run bigua-analyzer --help
 - validate raw vs compressed output before relying on it for report conclusions
 - prefer isolated/manual canary before deeper integration
 
+### Headroom Phase 1.1 public toolchain
+**Purpose:** public/sanitized implementation of hypothesis-guided selective retrieval over large structured artifacts.
+
+**Public components:**
+- structural indexer
+- KAG query builder
+- deterministic retrieval selector
+- manual wrapper with shadow-mode logging
+
+**Repo-side location:**
+- `tools/headroom_phase1/`
+- `config/chief-of-staff.public.yaml`
+
+**Guardrails:**
+- no raw evidence artifacts in the repo
+- absence in retrieval pack must remain `not_verified_in_raw`
+- keep selection-first logs and code separable from confidential engagement data
+
 ### ProjectDiscovery Cloud / passive discovery layer
 **Purpose:** passive asset discovery and cloud-assisted recon support when the assessment model includes authorized external inventory work.
 

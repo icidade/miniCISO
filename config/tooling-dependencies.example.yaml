@@ -40,6 +40,14 @@ external_tools:
     install_strategy: "isolated/manual canary first"
     secret_handling: "no repo secrets"
     rollout_mode: "phase-gated and reversible"
+  headroom_phase1_public_toolchain:
+    enabled: optional
+    purpose: "Public/sanitized selective-retrieval toolchain for Headroom + KAG"
+    repo_paths:
+      - tools/headroom_phase1
+      - config/chief-of-staff.public.yaml
+    install_strategy: "export from vetted VPS state, then review diff before commit"
+    secret_handling: "sanitize config; never export raw artifacts or live secrets"
   projectdiscovery_cloud:
     enabled: optional
     purpose: "Passive discovery support for authorized external inventory"

@@ -71,12 +71,32 @@ Use `-Online`/`--online` para também enviar uma pergunta curta a cada perfil. E
 
 O repo contém somente configuração não secreta e conteúdo sanitizado. Não publique `.env`, tokens, sessões, memórias, logs ou relatórios reais. Consulte [`SECURITY.md`](SECURITY.md) e [`.env.example`](.env.example).
 
+## Autoatualização segura do overlay
+
+O repo agora pode manter uma cópia pública/sanitizada do que está em uso na VPS sem publicar estado privado.
+
+Principais artefatos públicos adicionais:
+
+- `tools/headroom_phase1/`: indexador, query KAG, seletor e wrapper do Headroom Phase 1.1A
+- `config/chief-of-staff.public.yaml`: snapshot sanitizado da configuração não secreta do perfil principal
+- `scripts/export_safe_self_state.py`: export seguro do estado público para dentro do repo
+
+Fluxo rápido:
+
+```bash
+python3 scripts/export_safe_self_state.py --apply
+./scripts/validate-repo.sh
+```
+
 ## Documentação
 
 - [`INSTALL.md`](INSTALL.md): instalação, atualização, rollback e limitações
 - [`docs/staff-operating-model.md`](docs/staff-operating-model.md): fluxo operacional
 - [`docs/profile-setup.md`](docs/profile-setup.md): contrato dos perfis
 - [`docs/dependencies-and-configuration.md`](docs/dependencies-and-configuration.md): dependências opcionais
+- [`docs/headroom-kag-selective-retrieval.md`](docs/headroom-kag-selective-retrieval.md): arquitetura pública da trilha Headroom + KAG
+- [`docs/self-update-capability.md`](docs/self-update-capability.md): capability de export/sync público
+- [`docs/github-pr-access.md`](docs/github-pr-access.md): PAT mínimo e setup de credencial na VPS
 - [`miniciso-staff-service-catalog-v4-full.pdf`](miniciso-staff-service-catalog-v4-full.pdf): catálogo de serviços
 
 ## Licença
