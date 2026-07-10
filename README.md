@@ -1,10 +1,10 @@
 # miniCISO
 
-Staff de segurança agentic para [Hermes Agent](https://github.com/NousResearch/hermes-agent), distribuído como um overlay reproduzível de perfis, prompts, templates e políticas operacionais.
+Agentic security staff for [Hermes Agent](https://github.com/NousResearch/hermes-agent), distributed as a reproducible overlay of profiles, prompts, templates, and operating policies.
 
-> Este repositório **não é um fork do Hermes**. O runtime é instalado pelo bootstrap a partir de uma versão e um commit imutáveis declarados em [`config/hermes-version.env`](config/hermes-version.env).
+> This repository is **not a Hermes fork**. The runtime is installed by the bootstrap from an immutable version and commit declared in [`config/hermes-version.env`](config/hermes-version.env).
 
-## Restauração rápida
+## Quick restore
 
 ### Windows (PowerShell)
 
@@ -14,7 +14,7 @@ cd miniCISO
 .\scripts\bootstrap.ps1
 ```
 
-### Linux, macOS ou WSL2
+### Linux, macOS, or WSL2
 
 ```bash
 git clone https://github.com/icidade/miniCISO.git
@@ -22,20 +22,20 @@ cd miniCISO
 ./scripts/bootstrap.sh
 ```
 
-O bootstrap:
+The bootstrap:
 
-1. baixa o instalador oficial do Hermes pelo commit fixado e valida seu SHA-256;
-2. instala o runtime sem gravar segredos no repositório;
-3. executa o setup local do provedor/modelo;
-4. cria os nove perfis MiniCISO a partir da configuração local;
-5. instala cada `SOUL.md`, cria o workspace compartilhado e configura o terminal local;
-6. executa verificações estruturais.
+1. downloads the official Hermes installer from the pinned commit and validates its SHA-256;
+2. installs the runtime without writing secrets into the repository;
+3. runs local provider/model setup;
+4. creates the nine MiniCISO profiles from the local configuration;
+5. installs each `SOUL.md`, creates the shared workspace, and configures the local terminal;
+6. runs structural checks.
 
-As credenciais solicitadas por `hermes setup` ficam no ambiente Hermes do usuário. Nunca são copiadas para este repositório.
+Credentials requested by `hermes setup` remain in the user's Hermes environment. They are never copied into this repository.
 
-## Perfis
+## Profiles
 
-- `chief-of-staff`: coordenador MiniCISO e síntese final
+- `chief-of-staff`: MiniCISO coordinator and final synthesis
 - `security-threat-modeling`
 - `security-architecture`
 - `security-code-review`
@@ -43,13 +43,13 @@ As credenciais solicitadas por `hermes setup` ficam no ambiente Hermes do usuár
 - `security-compliance-mapper`
 - `security-offensive-security`
 - `security-recon-attack-surface-strategist`
-- `security-qa`: gate final de qualidade
+- `security-qa`: final quality gate
 
-O `chief-of-staff` é um perfil Hermes dedicado e gerenciado integralmente por este overlay. O bootstrap não altera o prompt do perfil Hermes padrão.
+`chief-of-staff` is a dedicated Hermes profile fully managed by this overlay. The bootstrap does not modify the default Hermes profile prompt.
 
-## Validação
+## Validation
 
-Validação offline da árvore:
+Offline tree validation:
 
 ```powershell
 .\scripts\validate-repo.ps1
@@ -59,46 +59,46 @@ Validação offline da árvore:
 ./scripts/validate-repo.sh
 ```
 
-Depois do bootstrap, valide o runtime:
+After bootstrap, validate the runtime:
 
 ```powershell
 .\scripts\smoke-test.ps1
 ```
 
-Use `-Online`/`--online` para também enviar uma pergunta curta a cada perfil. Essa modalidade consome o provedor configurado.
+Use `-Online`/`--online` to also send a short question to each profile. That mode consumes the configured provider.
 
-## Segurança e privacidade
+## Security and privacy
 
-O repo contém somente configuração não secreta e conteúdo sanitizado. Não publique `.env`, tokens, sessões, memórias, logs ou relatórios reais. Consulte [`SECURITY.md`](SECURITY.md) e [`.env.example`](.env.example).
+The repo contains only non-secret configuration and sanitized content. Do not publish `.env`, tokens, sessions, memories, logs, or real reports. See [`SECURITY.md`](SECURITY.md) and [`.env.example`](.env.example).
 
-## Autoatualização segura do overlay
+## Safe overlay self-update
 
-O repo agora pode manter uma cópia pública/sanitizada do que está em uso na VPS sem publicar estado privado.
+The repo can now maintain a public, sanitized copy of what is running on the VPS without publishing private state.
 
-Principais artefatos públicos adicionais:
+Key additional public artifacts:
 
-- `tools/headroom_phase1/`: indexador, query KAG, seletor e wrapper do Headroom Phase 1.1A
-- `config/chief-of-staff.public.yaml`: snapshot sanitizado da configuração não secreta do perfil principal
-- `scripts/export_safe_self_state.py`: export seguro do estado público para dentro do repo
+- `tools/headroom_phase1/`: indexer, KAG query builder, selector, and Headroom Phase 1.1A wrapper
+- `config/chief-of-staff.public.yaml`: sanitized snapshot of the main profile's non-secret configuration
+- `scripts/export_safe_self_state.py`: safe export of public state into the repo
 
-Fluxo rápido:
+Quick flow:
 
 ```bash
 python3 scripts/export_safe_self_state.py --apply
 ./scripts/validate-repo.sh
 ```
 
-## Documentação
+## Documentation
 
-- [`INSTALL.md`](INSTALL.md): instalação, atualização, rollback e limitações
-- [`docs/staff-operating-model.md`](docs/staff-operating-model.md): fluxo operacional
-- [`docs/profile-setup.md`](docs/profile-setup.md): contrato dos perfis
-- [`docs/dependencies-and-configuration.md`](docs/dependencies-and-configuration.md): dependências opcionais
-- [`docs/headroom-kag-selective-retrieval.md`](docs/headroom-kag-selective-retrieval.md): arquitetura pública da trilha Headroom + KAG
-- [`docs/self-update-capability.md`](docs/self-update-capability.md): capability de export/sync público
-- [`docs/github-pr-access.md`](docs/github-pr-access.md): PAT mínimo e setup de credencial na VPS
-- [`miniciso-staff-service-catalog-v4-full.pdf`](miniciso-staff-service-catalog-v4-full.pdf): catálogo de serviços
+- [`INSTALL.md`](INSTALL.md): installation, updates, rollback, and limitations
+- [`docs/staff-operating-model.md`](docs/staff-operating-model.md): operating flow
+- [`docs/profile-setup.md`](docs/profile-setup.md): profile contract
+- [`docs/dependencies-and-configuration.md`](docs/dependencies-and-configuration.md): optional dependencies
+- [`docs/headroom-kag-selective-retrieval.md`](docs/headroom-kag-selective-retrieval.md): public architecture for the Headroom + KAG track
+- [`docs/self-update-capability.md`](docs/self-update-capability.md): public export/sync capability
+- [`docs/github-pr-access.md`](docs/github-pr-access.md): minimal PAT and credential setup on the VPS
+- [`miniciso-staff-service-catalog-v4-full.pdf`](miniciso-staff-service-catalog-v4-full.pdf): service catalog
 
-## Licença
+## License
 
-[MIT](LICENSE). O Hermes Agent é um projeto separado e mantém sua própria licença.
+[MIT](LICENSE). Hermes Agent is a separate project and keeps its own license.

@@ -1,9 +1,9 @@
 ﻿# Title
 
-> DRAFT - pendente de QA
+> DRAFT - pending QA
 
 ## Executive Summary
-- _Preencher_
+- _Fill in_
 
 ## Findings
 1. **Finding:**
@@ -12,7 +12,7 @@
    - Notes:
 
 ## Recommendations
-1. _Preencher_
+1. _Fill in_
 
 ## Assumptions
 - Assumed:

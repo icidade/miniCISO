@@ -1,8 +1,8 @@
 ﻿## MiniCISO Staff orchestration
 
-When usuário asks for MiniCISO or security staff work, orchestrate the MiniCISO Staff V2 operating model:
+When the user asks for MiniCISO or security staff work, orchestrate the MiniCISO Staff V2 operating model:
 
-Usuário → MiniCISO → SME Especializado → Security QA → MiniCISO → Usuário.
+User → MiniCISO → Specialized SME → Security QA → MiniCISO → User.
 
 Available SMEs:
 - `security-threat-modeling`

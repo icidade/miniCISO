@@ -19,18 +19,18 @@ $requiredFiles = @(
 )
 foreach ($relative in $requiredFiles) {
     if (-not (Test-Path -LiteralPath (Join-Path $repoRoot $relative))) {
-        Add-ValidationError "Arquivo obrigatório ausente: $relative"
+        Add-ValidationError "Missing required file: $relative"
     }
 }
 
 $profiles = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'profiles') -Directory -ErrorAction SilentlyContinue
 if ($profiles.Count -ne 9) {
-    Add-ValidationError "Esperados 9 diretórios de perfil; encontrados $($profiles.Count)."
+    Add-ValidationError "Expected 9 profile directories; found $($profiles.Count)."
 }
 foreach ($profile in $profiles) {
     $soul = Join-Path $profile.FullName 'SOUL.md'
     if (-not (Test-Path -LiteralPath $soul) -or (Get-Item -LiteralPath $soul).Length -eq 0) {
-        Add-ValidationError "SOUL.md ausente ou vazio: $($profile.Name)"
+        Add-ValidationError "Missing or empty SOUL.md: $($profile.Name)"
     }
 }
 
@@ -38,13 +38,13 @@ $versionPath = Join-Path $repoRoot 'config/hermes-version.env'
 if (Test-Path -LiteralPath $versionPath) {
     $versionText = Get-Content -LiteralPath $versionPath -Raw -Encoding UTF8
     if ($versionText -notmatch '(?m)^HERMES_TAG=v\d{4}\.\d{1,2}\.\d{1,2}\r?$') {
-        Add-ValidationError 'HERMES_TAG não tem o formato esperado.'
+        Add-ValidationError 'HERMES_TAG does not match the expected format.'
     }
     if ($versionText -notmatch '(?m)^HERMES_COMMIT=[0-9a-f]{40}\r?$') {
-        Add-ValidationError 'HERMES_COMMIT deve ser um SHA Git completo.'
+        Add-ValidationError 'HERMES_COMMIT must be a full Git SHA.'
     }
     if (($versionText | Select-String -Pattern '(?m)^HERMES_INSTALL_(PS1|SH)_SHA256=[A-F0-9]{64}\r?$' -AllMatches).Matches.Count -ne 2) {
-        Add-ValidationError 'Os dois checksums de instalador devem ser SHA-256 completos.'
+        Add-ValidationError 'Both installer checksums must be full SHA-256 values.'
     }
 }
 
@@ -56,19 +56,19 @@ $textFiles = Get-ChildItem -LiteralPath $repoRoot -Recurse -File | Where-Object 
 }
 foreach ($file in $textFiles) {
     try { [void]$strictUtf8.GetString([IO.File]::ReadAllBytes($file.FullName)) }
-    catch { Add-ValidationError "UTF-8 inválido: $($file.FullName.Substring($repoRoot.Length + 1))" }
+    catch { Add-ValidationError "Invalid UTF-8: $($file.FullName.Substring($repoRoot.Length + 1))" }
 }
 
 $secretPattern = '-----BEGIN [A-Z ]*PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}'
 foreach ($file in $textFiles) {
     if (Select-String -LiteralPath $file.FullName -Pattern $secretPattern -Quiet) {
-        Add-ValidationError "Possível segredo encontrado: $($file.FullName.Substring($repoRoot.Length + 1))"
+        Add-ValidationError "Possible secret found: $($file.FullName.Substring($repoRoot.Length + 1))"
     }
 }
 
 foreach ($json in @('meta/MANIFEST.json', 'meta/SUMMARY.json')) {
     try { Get-Content -LiteralPath (Join-Path $repoRoot $json) -Raw -Encoding UTF8 | ConvertFrom-Json | Out-Null }
-    catch { Add-ValidationError "JSON inválido: $json" }
+    catch { Add-ValidationError "Invalid JSON: $json" }
 }
 
 try {
@@ -76,7 +76,7 @@ try {
     python3 -c "import pathlib,sys,yaml; yaml.safe_load(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'))" $yamlPath | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'yaml-parse-failed' }
 } catch {
-    Add-ValidationError 'config/chief-of-staff.public.yaml inválido.'
+    Add-ValidationError 'config/chief-of-staff.public.yaml is invalid.'
 }
 
 $headroomDir = Join-Path $repoRoot 'tools/headroom_phase1'
@@ -106,7 +106,7 @@ if (Test-Path -LiteralPath $headroomDir) {
 
 if ($errors.Count -gt 0) {
     $errors | ForEach-Object { Write-Error $_ -ErrorAction Continue }
-    throw "Validação falhou com $($errors.Count) erro(s)."
+    throw "Validation failed with $($errors.Count) error(s)."
 }
 
-Write-Host "OK: estrutura válida, $($profiles.Count) perfis, UTF-8 e verificações básicas de segredo." -ForegroundColor Green
+Write-Host "OK: valid structure, $($profiles.Count) profiles, UTF-8, and basic secret checks." -ForegroundColor Green

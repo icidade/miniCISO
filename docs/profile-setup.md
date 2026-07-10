@@ -4,7 +4,7 @@ Reference architecture for the MiniCISO/Security SME ecosystem.
 
 ## Profile set
 
-Use this profile group when usuário asks for a personal security staff / MiniCISO capability:
+Use this profile group when the user asks for a personal security staff / MiniCISO capability:
 
 - `chief-of-staff`: MiniCISO coordinator/orchestrator; routes requests, manages handoffs, and returns the final user-facing synthesis.
 - `security-threat-modeling`: threat models, abuse cases, assets, trust boundaries, prioritized controls.
@@ -47,10 +47,10 @@ terminal, file, web, skills, memory, session_search, delegation, todo
 
 Each SME should explicitly include:
 
-- Portuguese Brazilian responses unless asked otherwise.
-- Only analyze systems, repos, docs, or targets explicitly provided/authorized by usuário.
+- Brazilian Portuguese responses unless asked otherwise.
+- Only analyze systems, repos, docs, or targets explicitly provided/authorized by the user.
 - Do not assume access to employer/confidential/third-party systems.
-- Mark non-final outputs as `DRAFT - pendente de QA`.
+- Mark non-final outputs as `DRAFT - pending QA`.
 - Final reports must pass through `security-qa`.
 
 For offensive-security SMEs, include stronger boundaries:
@@ -64,7 +64,7 @@ For offensive-security SMEs, include stronger boundaries:
 After creation, verify every profile with an actual Hermes invocation:
 
 ```bash
-hermes -p <profile> chat -Q -q "Responda em uma única linha começando com OK: qual é o seu papel neste ecossistema MiniCISO?"
+hermes -p <profile> chat -Q -q "Answer in a single line starting with OK: what is your role in this MiniCISO ecosystem?"
 ```
 
 Expected: each profile identifies its role and constraints correctly.

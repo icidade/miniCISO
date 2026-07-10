@@ -1,17 +1,17 @@
 # Security policy
 
-## Dados que não pertencem ao repositório
+## Data that does not belong in the repository
 
-Não abra issues ou commits contendo tokens, chaves, cookies, dados pessoais, relatórios reais, sessões Hermes, memórias ou evidências de clientes/terceiros.
+Do not open issues or commits containing tokens, keys, cookies, personal data, real reports, Hermes sessions, memories, or client/third-party evidence.
 
-Se um segredo for publicado, revogue-o no provedor antes de limpar o histórico. Remover apenas o arquivo do commit mais recente não elimina a exposição.
+If a secret is published, revoke it with the provider before cleaning history. Removing only the file from the most recent commit does not eliminate the exposure.
 
-## Relato de vulnerabilidades
+## Vulnerability reporting
 
-Para falhas no overlay MiniCISO, use o recurso privado **Report a vulnerability** na aba Security do GitHub, quando habilitado. Não publique detalhes exploráveis em uma issue pública.
+For flaws in the MiniCISO overlay, use GitHub Security's private **Report a vulnerability** flow when enabled. Do not publish exploitable details in a public issue.
 
-Falhas no runtime devem ser reportadas ao projeto [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) conforme a política daquele projeto.
+Runtime flaws must be reported to [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) according to that project's policy.
 
-## Escopo
+## Scope
 
-Os perfis ofensivos deste projeto exigem autorização explícita e escopo definido. A presença dos prompts não concede autorização para testar sistemas de terceiros.
+The offensive profiles in this project require explicit authorization and defined scope. The presence of prompts does not grant authorization to test third-party systems.

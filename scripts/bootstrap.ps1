@@ -25,7 +25,7 @@ function Invoke-Hermes {
     param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Arguments)
     & $script:HermesCommand @Arguments
     if ($LASTEXITCODE -ne 0) {
-        throw "Hermes falhou: hermes $($Arguments -join ' ')"
+        throw "Hermes failed: hermes $($Arguments -join ' ')"
     }
 }
 
@@ -44,16 +44,16 @@ function Resolve-HermesCommand {
     foreach ($candidate in $candidates) {
         if (Test-Path -LiteralPath $candidate) { return $candidate }
     }
-    throw 'Comando hermes não encontrado após a instalação. Abra um novo terminal e execute novamente com -SkipHermesInstall.'
+    throw 'hermes command not found after installation. Open a new terminal and rerun with -SkipHermesInstall.'
 }
 
 if (-not (Test-Path -LiteralPath $versionFile)) {
-    throw "Arquivo de versão ausente: $versionFile"
+    throw "Missing version file: $versionFile"
 }
 $version = Read-VersionFile -Path $versionFile
 $requiredVersionKeys = @('HERMES_COMMIT', 'HERMES_TAG', 'HERMES_INSTALL_PS1_SHA256')
 foreach ($key in $requiredVersionKeys) {
-    if (-not $version.ContainsKey($key)) { throw "Chave ausente em hermes-version.env: $key" }
+    if (-not $version.ContainsKey($key)) { throw "Missing key in hermes-version.env: $key" }
 }
 
 Write-Host "MiniCISO: Hermes $($version.HERMES_TAG) ($($version.HERMES_COMMIT))"
@@ -66,7 +66,7 @@ if (-not $SkipHermesInstall) {
         Invoke-WebRequest -UseBasicParsing -Uri $installerUri -OutFile $installerPath
         $actualHash = (Get-FileHash -LiteralPath $installerPath -Algorithm SHA256).Hash
         if ($actualHash -ne $version.HERMES_INSTALL_PS1_SHA256) {
-            throw "Checksum inválido para o instalador Hermes. Esperado $($version.HERMES_INSTALL_PS1_SHA256), recebido $actualHash"
+            throw "Invalid checksum for the Hermes installer. Expected $($version.HERMES_INSTALL_PS1_SHA256), got $actualHash"
         }
 
         $installDir = Join-Path $HermesHome 'hermes-agent'
@@ -76,7 +76,7 @@ if (-not $SkipHermesInstall) {
             -InstallDir $installDir `
             -SkipSetup `
             -NonInteractive
-        if ($LASTEXITCODE -ne 0) { throw "Instalador Hermes terminou com código $LASTEXITCODE" }
+        if ($LASTEXITCODE -ne 0) { throw "Hermes installer exited with code $LASTEXITCODE" }
     }
     finally {
         Remove-Item -LiteralPath $installerPath -Force -ErrorAction SilentlyContinue
@@ -87,19 +87,19 @@ $env:Path = "$(Join-Path $HermesHome 'bin');$(Join-Path $HOME '.local\bin');$env
 $script:HermesCommand = Resolve-HermesCommand
 
 if (-not $SkipProviderSetup) {
-    Write-Host 'Configure o provedor/modelo local. Nenhuma credencial será gravada no repo.'
+    Write-Host 'Configure the local provider/model. No credentials will be written to the repo.'
     Invoke-Hermes -Arguments @('setup')
 }
 
 $profileRoot = Join-Path $HOME '.hermes\profiles'
 $profiles = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'profiles') -Directory | Sort-Object Name
-if ($profiles.Count -ne 9) { throw "Esperados 9 perfis; encontrados $($profiles.Count)." }
+if ($profiles.Count -ne 9) { throw "Expected 9 profiles; found $($profiles.Count)." }
 
 foreach ($profile in $profiles) {
     $name = $profile.Name
     $destinationDir = Join-Path $profileRoot $name
     if (-not (Test-Path -LiteralPath $destinationDir)) {
-        Write-Host "Criando perfil $name"
+        Write-Host "Creating profile $name"
         Invoke-Hermes -Arguments @('profile', 'create', $name, '--clone')
     }
 
@@ -127,4 +127,4 @@ foreach ($profile in $profiles) {
 & (Join-Path $PSScriptRoot 'validate-repo.ps1')
 
 Write-Host ''
-Write-Host 'MiniCISO restaurado. Execute scripts\smoke-test.ps1 para validar o runtime.' -ForegroundColor Green
+Write-Host 'MiniCISO restored. Run scripts\smoke-test.ps1 to validate the runtime.' -ForegroundColor Green

@@ -1,19 +1,19 @@
 # Headroom Phase 1 public tools
 
-Ferramentas públicas/sanitizadas da trilha Headroom + KAG.
+Public, sanitized tools for the Headroom + KAG track.
 
-## Conteúdo
+## Contents
 
-- indexador estrutural
-- schema de query KAG
-- seletor determinístico
-- wrapper manual com logging de `selection_first`
-- testes unitários mínimos
+- structural indexer
+- KAG query schema
+- deterministic selector
+- manual wrapper with `selection_first` logging
+- minimal unit tests
 
-## Fora de escopo neste diretório
+## Out of scope in this directory
 
-- artefatos reais de assessment
-- retrieval packs reais
-- índices reais
-- logs com contexto sensível
-- qualquer referência a programas BBP específicos em andamento
+- real assessment artifacts
+- real retrieval packs
+- real indexes
+- logs with sensitive context
+- any reference to specific active BBP programs

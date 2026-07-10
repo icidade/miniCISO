@@ -1,61 +1,61 @@
 # Headroom + KAG selective retrieval
 
-Este documento descreve a camada pública e sanitizada da evolução do Headroom para **selection-first** guiado por hipótese/KAG.
+This document describes the public, sanitized layer of the Headroom evolution toward hypothesis/KAG-guided **selection-first** retrieval.
 
-## Motivação
+## Motivation
 
-Quando um artefato estruturado domina o custo de contexto, a próxima evolução não é comprimir melhor o arquivo inteiro. É:
-
-```text
-hipótese -> seleção estrutural -> retrieval pack mínimo -> compressão opcional -> raciocínio -> expansão ao raw quando necessário
-```
-
-Isso substitui o fluxo menos preciso:
+When a structured artifact dominates context cost, the next evolution is not to compress the entire file better. It is to:
 
 ```text
-artefato inteiro -> compressão -> raciocínio
+hypothesis -> structural selection -> minimal retrieval pack -> optional compression -> reasoning -> expansion to raw when needed
 ```
 
-## Contrato operacional
+This replaces the less precise flow:
 
-Regra obrigatória:
+```text
+entire artifact -> compression -> reasoning
+```
 
-- **ausência no retrieval pack nunca é evidência de ausência no artefato bruto**;
-- se a evidência exigida não apareceu no pack, o estado correto é **`not_verified_in_raw`**;
-- claims finais continuam dependentes do raw-authoritative review.
+## Operating contract
 
-## Componentes públicos desta fase
+Mandatory rule:
 
-Os componentes versionados em `tools/headroom_phase1/` são:
+- **absence from the retrieval pack is never evidence of absence in the raw artifact**;
+- if the required evidence does not appear in the pack, the correct state is **`not_verified_in_raw`**;
+- final claims still depend on raw-authoritative review.
 
-- `hr_index_artifact.py`: índice estrutural local com `json_path`, `parent_path`, `ancestors`, `signals`, `estimated_tokens` e hash da fonte;
-- `hr_kag_query.py`: schema de query orientado por hipótese/superfície;
-- `hr_selective_retrieval.py`: seleção determinística com orçamento (`token_budget`) e razões de inclusão;
-- `hr_manual_wrapper.py`: wrapper de execução/log, agora apto a registrar metadata de `selection_first` em shadow mode.
+## Public components in this phase
+
+The components versioned in `tools/headroom_phase1/` are:
+
+- `hr_index_artifact.py`: local structural index with `json_path`, `parent_path`, `ancestors`, `signals`, `estimated_tokens`, and source hash;
+- `hr_kag_query.py`: hypothesis/surface-oriented query schema;
+- `hr_selective_retrieval.py`: deterministic selection with budget (`token_budget`) and inclusion reasons;
+- `hr_manual_wrapper.py`: execution/logging wrapper, now able to record `selection_first` metadata in shadow mode.
 
 ## Shadow mode
 
-A recomendação inicial é operar em **shadow mode**:
+The initial recommendation is to run in **shadow mode**:
 
-1. gerar índice estrutural;
-2. gerar query KAG;
-3. produzir retrieval pack;
-4. continuar executando o fluxo raw/full em paralelo;
-5. comparar economia, evidência recuperada e `decision_delta`.
+1. generate a structural index;
+2. generate a KAG query;
+3. produce a retrieval pack;
+4. continue running the raw/full flow in parallel;
+5. compare savings, recovered evidence, and `decision_delta`.
 
-## Proveniência mínima do pack
+## Minimum pack provenance
 
-Cada slice selecionado deve preservar, no mínimo:
+Each selected slice must preserve, at minimum:
 
 - `json_path`
-- `parent_path` ou contexto equivalente
+- `parent_path` or equivalent context
 - `ancestors`
 - `reason_selected`
-- `source_sha256` ou versão/hash equivalente
+- `source_sha256` or equivalent version/hash
 
-## Métricas úteis
+## Useful metrics
 
-Além de economia de tokens, acompanhar:
+In addition to token savings, track:
 
 - `source_tokens_estimated`
 - `selected_tokens_estimated`
@@ -67,18 +67,18 @@ Além de economia de tokens, acompanhar:
 - `false_omission_events`
 - `decision_delta`
 
-## Escopo público deste repo
+## Public scope of this repo
 
-Este repo pode carregar:
+This repo may carry:
 
-- código dos seletores/indexadores/wrapper;
-- testes unitários dos componentes;
-- configuração pública/sanitizada do overlay;
-- documentação metodológica.
+- selector/indexer/wrapper code;
+- unit tests for the components;
+- public/sanitized overlay configuration;
+- methodology documentation.
 
-Este repo **não** deve carregar:
+This repo **must not** carry:
 
-- artefatos brutos reais de assessment;
-- logs operacionais com contexto sensível;
-- referências a programas BBP específicos em andamento;
-- findings, reproduções ou trilhas de triage não sanitizadas.
+- real raw assessment artifacts;
+- operational logs with sensitive context;
+- references to specific active BBP programs;
+- unsanitized findings, repros, or triage trails.
