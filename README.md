@@ -96,7 +96,7 @@ For bug bounty / external vulnerability work:
 - `RESEARCH` means produce a safe impact-validation plan, not a submission draft;
 - `NO-GO` means block submission and register the lesson learned.
 
-See [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md) and [`templates/finding-decision-template.md`](templates/finding-decision-template.md).
+See [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md), [`templates/finding-decision-template.md`](templates/finding-decision-template.md), [`docs/submission-followup.md`](docs/submission-followup.md), and [`templates/submission-followup-template.md`](templates/submission-followup-template.md).
 
 ## Documentation
 
@@ -106,6 +106,7 @@ See [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md) and [`tem
 - [`docs/dependencies-and-configuration.md`](docs/dependencies-and-configuration.md): optional dependencies
 - [`docs/headroom-kag-selective-retrieval.md`](docs/headroom-kag-selective-retrieval.md): public architecture for the Headroom + KAG track
 - [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md): pre-submission KAG gate for finding validation
+- [`docs/submission-followup.md`](docs/submission-followup.md): post-submission follow-up tracking and triage-response workflow
 - [`docs/self-update-capability.md`](docs/self-update-capability.md): public export/sync capability
 - [`docs/github-pr-access.md`](docs/github-pr-access.md): minimal PAT and credential setup on the VPS
 - [`miniciso-staff-service-catalog-v5.md`](miniciso-staff-service-catalog-v5.md): service catalog source
