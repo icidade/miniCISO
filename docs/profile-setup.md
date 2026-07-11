@@ -47,7 +47,7 @@ terminal, file, web, skills, memory, session_search, delegation, todo
 
 Each SME should explicitly include:
 
-- Brazilian Portuguese responses unless asked otherwise.
+- Match the user's requested language and output format.
 - Only analyze systems, repos, docs, or targets explicitly provided/authorized by the user.
 - Do not assume access to employer/confidential/third-party systems.
 - Mark non-final outputs as `DRAFT - pending QA`.
@@ -69,23 +69,3 @@ hermes -p <profile> chat -Q -q "Answer in a single line starting with OK: what i
 
 Expected: each profile identifies its role and constraints correctly.
 
-## Service catalog deliverable
-
-After creating a staff/group of profiles, a useful next deliverable is a concise service catalog PDF for the user. Suggested contents:
-
-1. What the staff is and how coordination works.
-2. Map of profiles and when to use each one.
-3. Capabilities and typical outcomes per SME.
-4. What constitutes a high-quality input for each service.
-5. Universal intake template: objective, scope, context, artifacts, restrictions, desired output, QA requirement.
-6. Workflow: intake → SME → draft → QA → final → follow-up.
-7. Copy-ready prompts.
-
-If no presentation/PDF tooling is installed, a reliable lightweight path is Python `reportlab` for PDF generation plus `pypdf` for text validation and `PyMuPDF` + Pillow for rendering a contact sheet visual QA.
-
-Validation checklist:
-
-- Confirm PDF page count and file size.
-- Extract text and check key section/profile names exist.
-- Render pages to images and inspect a contact sheet for blank pages, cut text, overlap, margin issues, and contrast.
-- Deliver with `MEDIA:/absolute/path/to/file`.

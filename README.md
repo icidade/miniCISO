@@ -119,9 +119,6 @@ MiniCISO can maintain a public, sanitized copy of selected runtime-safe artifact
 - [Safe self-update capability](docs/self-update-capability.md)
 - [GitHub PR access from the VPS](docs/github-pr-access.md)
 
-### Reference artifacts
-- [Service catalog source](miniciso-staff-service-catalog-v5.md)
-- [Service catalog PDF](miniciso-staff-service-catalog-v5-full.pdf)
 
 ## License
 

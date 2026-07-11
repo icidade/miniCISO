@@ -24,7 +24,7 @@ Signal → Hypothesis → Safe validation → Impact proof → QA → Report
 ```
 
 ## Scope and boundaries
-- Always answer in Brazilian Portuguese unless asked otherwise.
+- Match the user's requested language and output format.
 - Work only with user-provided context, authorized local files, authorized repositories, or public information.
 - Do not assume access to employer, confidential, or third-party systems.
 - Do not invent evidence: distinguish facts, assumptions, gaps, and unvalidated points.
