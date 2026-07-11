@@ -2,7 +2,16 @@
 
 Agentic security staff for [Hermes Agent](https://github.com/NousResearch/hermes-agent), distributed as a reproducible overlay of profiles, prompts, templates, and operating policies.
 
-> This repository is **not a Hermes fork**. The runtime is installed by the bootstrap from an immutable version and commit declared in [`config/hermes-version.env`](config/hermes-version.env).
+> This repository is **not a Hermes fork**. MiniCISO is a public overlay installed on top of a Hermes runtime pinned by version and commit in [`config/hermes-version.env`](config/hermes-version.env).
+
+## Why MiniCISO
+
+MiniCISO packages a reusable security operating model around Hermes:
+- a `chief-of-staff` coordinator for intake, routing, synthesis, and QA enforcement;
+- specialized security SMEs for threat modeling, architecture, code review, AppSec, compliance, offensive validation, recon, and QA;
+- evidence-driven workflows with explicit gates for finding validation and post-submission follow-up.
+
+It is designed to help a human operator run structured security engagements more consistently. It does **not** replace human authorization, judgment, or accountable decision-making.
 
 ## Quick restore
 
@@ -22,20 +31,14 @@ cd miniCISO
 ./scripts/bootstrap.sh
 ```
 
-The bootstrap:
+The bootstrap restores the pinned Hermes runtime, creates the MiniCISO profile set, installs the overlay prompts and templates, prepares the shared workspace, and runs structural checks.
 
-1. downloads the official Hermes installer from the pinned commit and validates its SHA-256;
-2. installs the runtime without writing secrets into the repository;
-3. runs local provider/model setup;
-4. creates the nine MiniCISO profiles from the local configuration;
-5. installs each `SOUL.md`, creates the shared workspace, and configures the local terminal;
-6. runs structural checks.
+Credentials requested by `hermes setup` stay in the user's Hermes environment. They are never copied into this repository.
 
-Credentials requested by `hermes setup` remain in the user's Hermes environment. They are never copied into this repository.
+## Security staff at a glance
 
-## Profiles
-
-- `chief-of-staff`: MiniCISO coordinator and final synthesis
+MiniCISO ships the following public profile set:
+- `chief-of-staff`
 - `security-threat-modeling`
 - `security-architecture`
 - `security-code-review`
@@ -43,13 +46,13 @@ Credentials requested by `hermes setup` remain in the user's Hermes environment.
 - `security-compliance-mapper`
 - `security-offensive-security`
 - `security-recon-attack-surface-strategist`
-- `security-qa`: final quality gate
+- `security-qa`
 
-`chief-of-staff` is a dedicated Hermes profile fully managed by this overlay. The bootstrap does not modify the default Hermes profile prompt.
+For responsibilities, handoffs, and usage examples, see the wiki staff guide and the canonical profile contract in [`docs/profile-setup.md`](docs/profile-setup.md).
 
-## Validation
+## Validate the installation
 
-Offline tree validation:
+Offline repository validation:
 
 ```powershell
 .\scripts\validate-repo.ps1
@@ -59,58 +62,66 @@ Offline tree validation:
 ./scripts/validate-repo.sh
 ```
 
-After bootstrap, validate the runtime:
+Runtime smoke test after bootstrap:
 
 ```powershell
 .\scripts\smoke-test.ps1
 ```
 
-Use `-Online`/`--online` to also send a short question to each profile. That mode consumes the configured provider.
+```bash
+./scripts/smoke-test.sh
+```
+
+Use `-Online` / `--online` only when you want to send a real question to each profile using the configured provider.
 
 ## Security and privacy
 
-The repo contains only non-secret configuration and sanitized content. Do not publish `.env`, tokens, sessions, memories, logs, or real reports. See [`SECURITY.md`](SECURITY.md) and [`.env.example`](.env.example).
-
-## Safe overlay self-update
-
-The repo can now maintain a public, sanitized copy of what is running on the VPS without publishing private state.
-
-Key additional public artifacts:
-
-- `tools/headroom_phase1/`: indexer, KAG query builder, selector, and Headroom Phase 1.1A wrapper
-- `config/chief-of-staff.public.yaml`: sanitized snapshot of the main profile's non-secret configuration
-- `scripts/export_safe_self_state.py`: safe export of public state into the repo
-
-Quick flow:
-
-```bash
-python3 scripts/export_safe_self_state.py --apply
-./scripts/validate-repo.sh
-```
+This repository contains only non-secret configuration and sanitized public content. Do **not** publish `.env` files, tokens, sessions, memories, logs, real reports, or unsanitized evidence. See [`SECURITY.md`](SECURITY.md) and [`.env.example`](.env.example).
 
 ## External finding workflow
 
-For bug bounty / external vulnerability work:
+For external vulnerability or bug bounty work, report drafting starts only after a `GO` decision. `RESEARCH` means produce an impact-validation plan, and `NO-GO` means block submission and capture the lesson learned.
 
-- no external report draft should start before a `GO` decision;
-- `RESEARCH` means produce a safe impact-validation plan, not a submission draft;
-- `NO-GO` means block submission and register the lesson learned.
+Canonical sources:
+- [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md)
+- [`templates/finding-decision-template.md`](templates/finding-decision-template.md)
+- [`docs/submission-followup.md`](docs/submission-followup.md)
+- [`templates/submission-followup-template.md`](templates/submission-followup-template.md)
 
-See [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md), [`templates/finding-decision-template.md`](templates/finding-decision-template.md), [`docs/submission-followup.md`](docs/submission-followup.md), and [`templates/submission-followup-template.md`](templates/submission-followup-template.md).
+## Safe overlay self-update
 
-## Documentation
+MiniCISO can maintain a public, sanitized copy of selected runtime-safe artifacts without publishing private state. See [`docs/self-update-capability.md`](docs/self-update-capability.md).
 
-- [`INSTALL.md`](INSTALL.md): installation, updates, rollback, and limitations
-- [`docs/staff-operating-model.md`](docs/staff-operating-model.md): operating flow
-- [`docs/profile-setup.md`](docs/profile-setup.md): profile contract
-- [`docs/dependencies-and-configuration.md`](docs/dependencies-and-configuration.md): optional dependencies
-- [`docs/headroom-kag-selective-retrieval.md`](docs/headroom-kag-selective-retrieval.md): public architecture for the Headroom + KAG track
-- [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md): pre-submission KAG gate for finding validation
-- [`docs/submission-followup.md`](docs/submission-followup.md): post-submission follow-up tracking and triage-response workflow
-- [`docs/self-update-capability.md`](docs/self-update-capability.md): public export/sync capability
-- [`docs/github-pr-access.md`](docs/github-pr-access.md): minimal PAT and credential setup on the VPS
-- [`miniciso-staff-service-catalog-v5.md`](miniciso-staff-service-catalog-v5.md): service catalog source
-- [`miniciso-staff-service-catalog-v5-full.pdf`](miniciso-staff-service-catalog-v5-full.pdf): service catalog PDF
+## Documentation map
+
+### Start here
+- [Project Wiki](https://github.com/icidade/miniCISO/wiki)
+- [Installation Guide](INSTALL.md)
+- [Security Policy](SECURITY.md)
+
+### Getting started
+- [Installation and restoration](INSTALL.md)
+- [Profile setup contract](docs/profile-setup.md)
+- [README vs docs vs Wiki](docs/readme-docs-wiki-boundary.md)
+
+### Architecture and operating model
+- [Staff operating model](docs/staff-operating-model.md)
+- [Repo architecture](docs/repo-architecture.md)
+- [Repo mapping](docs/repo-mapping.md)
+- [Headroom + KAG selective retrieval](docs/headroom-kag-selective-retrieval.md)
+
+### Finding validation and follow-up
+- [KAG-oriented finding validation](docs/kag-finding-validation.md)
+- [External submission follow-up](docs/submission-followup.md)
+
+### Operations
+- [Dependencies and configuration](docs/dependencies-and-configuration.md)
+- [Safe self-update capability](docs/self-update-capability.md)
+- [GitHub PR access from the VPS](docs/github-pr-access.md)
+
+### Reference artifacts
+- [Service catalog source](miniciso-staff-service-catalog-v5.md)
+- [Service catalog PDF](miniciso-staff-service-catalog-v5-full.pdf)
 
 ## License
 
