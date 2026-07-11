@@ -1,5 +1,7 @@
 # miniCISO
 
+[**Visit the MiniCISO project site →**](https://icidade.github.io/miniCISO/)
+
 Agentic security staff for [Hermes Agent](https://github.com/NousResearch/hermes-agent), distributed as a reproducible overlay of profiles, prompts, templates, and operating policies.
 
 > This repository is **not a Hermes fork**. MiniCISO is a public overlay installed on top of a Hermes runtime pinned by version and commit in [`config/hermes-version.env`](config/hermes-version.env).
