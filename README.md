@@ -11,7 +11,9 @@
 
 # MiniCISO
 
-Agentic security staff for [Hermes Agent](https://github.com/NousResearch/hermes-agent), distributed as a reproducible overlay of profiles, prompts, templates, and operating policies.
+[Hermes Agent](https://github.com/NousResearch/hermes-agent) is a self-improving AI agent runtime with tools, persistent knowledge, reusable skills, scheduled automation, and support for multiple model providers.
+
+MiniCISO builds on that runtime as an agentic security staff, distributed as a reproducible overlay of profiles, prompts, templates, and operating policies.
 
 > This repository is **not a Hermes fork**. MiniCISO is a public overlay installed on top of a Hermes runtime pinned by version and commit in [`config/hermes-version.env`](config/hermes-version.env).
 
