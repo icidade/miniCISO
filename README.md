@@ -1,4 +1,15 @@
-# miniCISO
+<p align="center">
+  <img src="images/social-preview.png" alt="MiniCISO — agentic security staff" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/icidade/miniCISO/releases"><img src="https://img.shields.io/github/v/release/icidade/miniCISO?label=release" alt="Latest release"></a>
+  <a href="https://github.com/icidade/miniCISO/actions/workflows/validate.yml"><img src="https://github.com/icidade/miniCISO/actions/workflows/validate.yml/badge.svg" alt="Validation status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/icidade/miniCISO" alt="MIT license"></a>
+  <a href="https://patreon.com/bigua_analyzer"><img src="https://img.shields.io/badge/Support-Patreon-ff424d?logo=patreon" alt="Support on Patreon"></a>
+</p>
+
+# MiniCISO
 
 Agentic security staff for [Hermes Agent](https://github.com/NousResearch/hermes-agent), distributed as a reproducible overlay of profiles, prompts, templates, and operating policies.
 
