@@ -1,0 +1,43 @@
+{
+  "title": "The Evidence Closure Loop: Engineering a Bounded-Autonomous, Multi-Agent Security Staff for Evidence-Grounded Assessments and Bug Bounty",
+  "upload_type": "publication",
+  "publication_type": "report",
+  "description": "Security teams are increasingly experimenting with large-language-model agents, yet most implementations optimize for generation speed rather than decision integrity. A system that can produce a polished report faster can also produce a polished mistake faster. This practitioner whitepaper presents an architecture for a scalable security staff built around role separation, explicit evidence models, mandatory adversarial quality assurance, and bounded autonomy. The implementation uses a central chief-of-staff, specialized security SMEs, a shared evidence workspace, and an independent Security QA gate. It applies Knowledge Augmented Generation (KAG) in two distinct planes: a retrieval plane that produces provenance-preserving evidence packs, and a decision plane that links scope, vulnerability semantics, evidence strength, trust boundaries, and qualification criteria. The paper contributes a transferable operating model, a dual-plane KAG pattern, an evidence-closure discipline, a triage-first bug bounty gate, and an evaluation framework that measures decision quality in addition to cost. The MiniCISO implementation is used as a reproducible case study, not as a product pitch.",
+  "creators": [
+    {
+      "name": "Cidade, Irlan de Alvarenga"
+    }
+  ],
+  "publication_date": "2026-07-10",
+  "version": "1.0",
+  "language": "eng",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "agentic security",
+    "multi-agent systems",
+    "evidence-grounded assessments",
+    "bounded autonomy",
+    "Knowledge Augmented Generation",
+    "bug bounty",
+    "security quality assurance"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/icidade/miniCISO",
+      "relation": "documents",
+      "resource_type": "software"
+    }
+  ],
+  "references": [
+    "I. A. Cidade, \"miniCISO: agentic security staff,\" public GitHub repository, 2026. https://github.com/icidade/miniCISO",
+    "I. A. Cidade, \"MiniCISO Staff Service Catalog v5,\" July 10, 2026. https://github.com/icidade/miniCISO/blob/main/miniciso-staff-service-catalog-v5.md",
+    "P. Lewis et al., \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,\" NeurIPS, 2020. https://arxiv.org/abs/2005.11401",
+    "L. Liang et al., \"KAG: Boosting LLMs in Professional Domains via Knowledge Augmented Generation,\" 2024. https://arxiv.org/abs/2409.13731",
+    "D. Edge et al., \"From Local to Global: A Graph RAG Approach to Query-Focused Summarization,\" 2024. https://arxiv.org/abs/2404.16130",
+    "Q. Wu et al., \"AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation,\" 2023. https://arxiv.org/abs/2308.08155",
+    "National Institute of Standards and Technology, \"Artificial Intelligence Risk Management Framework (AI RMF 1.0),\" NIST AI 100-1, 2023. https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+    "National Institute of Standards and Technology, \"Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile,\" NIST AI 600-1, 2024. https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  ],
+  "notes": "Repository details in this paper were checked against the public icidade/miniCISO repository and the supplied Service Catalog v5. Operational telemetry and historical incidents are author-provided observations and are labeled as such.",
+  "prereserve_doi": true
+}
