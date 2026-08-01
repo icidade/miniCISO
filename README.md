@@ -107,6 +107,9 @@ MiniCISO can maintain a public, sanitized copy of selected runtime-safe artifact
 
 ## Documentation map
 
+### Research and whitepapers
+- [The Evidence Closure Loop](docs/whitepapers/evidence-closure-loop/evidence-closure-loop-whitepaper.pdf) — [DOI: 10.5281/zenodo.21731494](https://doi.org/10.5281/zenodo.21731494)
+
 ### Start here
 - [Project Wiki](https://github.com/icidade/miniCISO/wiki)
 - [Installation Guide](INSTALL.md)

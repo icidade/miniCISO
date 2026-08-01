@@ -15,6 +15,9 @@ Thumbs.db
 .hermes/
 miniciso-security/
 reports/
+.zenodo-state.json
+.zenodo-state.*.json
+.zenodo-state.json.tmp
 
 # Python and tooling caches
 __pycache__/
