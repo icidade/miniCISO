@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MiniCISO — Evidence-Driven Agentic Security Staff</title>
-  <meta name="description" content="MiniCISO is an open-source, evidence-driven security staff for Hermes Agent, coordinating specialized SMEs for structured and human-accountable security assessments.">
+  <meta name="description" content="MiniCISO is an open-source, evidence-driven security staff for structured, human-accountable assessments, backed by published practitioner research.">
   <link rel="canonical" href="https://icidade.github.io/miniCISO/">
   <link rel="icon" href="assets/favicon.jpg">
   <meta name="theme-color" content="#10171c">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://icidade.github.io/miniCISO/">
   <meta property="og:title" content="MiniCISO — Evidence-Driven Agentic Security Staff">
-  <meta property="og:description" content="Specialized security SMEs, explicit evidence discipline, and a mandatory QA gate—under accountable human judgment.">
+  <meta property="og:description" content="Specialized security SMEs, explicit evidence discipline, mandatory QA, and published practitioner research—under accountable human judgment.">
   <meta property="og:image" content="https://icidade.github.io/miniCISO/assets/social-preview.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="MiniCISO — Evidence-Driven Agentic Security Staff">
-  <meta name="twitter:description" content="Structured, human-accountable security assessments on Hermes Agent.">
+  <meta name="twitter:description" content="Evidence-driven, human-accountable security assessments backed by published practitioner research.">
   <meta name="twitter:image" content="https://icidade.github.io/miniCISO/assets/social-preview.png">
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
@@ -27,7 +27,7 @@
       <a class="brand" href="#top" aria-label="MiniCISO home"><img src="assets/logo-dark.png" alt="" width="42" height="43"><span>mini<span>CISO</span></span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
       <div class="nav-links" id="nav-links">
-        <a href="#overview">Overview</a><a href="#why">Why</a><a href="#how">How it works</a><a href="#staff">Staff</a><a href="#first-assessment">First assessment</a><a href="#docs">Docs</a>
+        <a href="#overview">Overview</a><a href="#why">Why</a><a href="#how">How it works</a><a href="#staff">Staff</a><a href="#first-assessment">First assessment</a><a href="#research">Research</a><a href="#docs">Docs</a>
         <a class="button button-small" href="https://github.com/icidade/miniCISO">View on GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </nav>
@@ -44,6 +44,14 @@
       </div>
       <figure class="hero-visual reveal"><img src="assets/hero-illustration.png" alt="Evidence artifacts flow into a coordinator and specialist network, through a quality gate, and into a structured report." width="807" height="421"><figcaption><span>Evidence in</span><span>Coordinated analysis</span><span>QA-reviewed output</span></figcaption></figure>
     </section>
+
+    <aside class="research-launch" aria-labelledby="research-launch-title">
+      <div class="shell research-launch-inner">
+        <p class="kicker">New research</p>
+        <div><h2 id="research-launch-title">The Evidence Closure Loop is now available.</h2><p>A practitioner whitepaper on evidence-driven decisions and bounded autonomy in agentic security.</p></div>
+        <a class="text-link" href="https://zenodo.org/records/21731494">Read the whitepaper on Zenodo <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
 
     <section class="section video-section" id="overview">
       <div class="shell video-grid">
@@ -124,14 +132,32 @@
       </div>
     </div></section>
 
+    <section class="section research-section" id="research" aria-labelledby="research-title">
+      <div class="shell research-card reveal">
+        <div class="research-copy">
+          <p class="kicker">07 / Research</p>
+          <h2 id="research-title">The Evidence Closure Loop</h2>
+          <p class="research-subtitle">A Reference Architecture for Evidence-Driven Agentic Security Decisions</p>
+          <p>This practitioner whitepaper presents the architecture behind MiniCISO’s approach to evidence qualification, independent Security QA, decision control, and bounded autonomy.</p>
+          <div class="actions"><a class="button" href="https://zenodo.org/records/21731494">Read on Zenodo <span aria-hidden="true">↗</span></a><a class="button button-ghost" href="https://zenodo.org/api/records/21731494/files/evidence-closure-loop-whitepaper.pdf/content">Download PDF <span aria-hidden="true">↓</span></a><a class="text-link" href="https://doi.org/10.5281/zenodo.21731494">View DOI <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <dl class="research-meta" aria-label="Whitepaper publication details">
+          <div><dt>Author</dt><dd>Cidade, Irlan de Alvarenga</dd></div>
+          <div><dt>Version</dt><dd>1.0</dd></div>
+          <div><dt>Published</dt><dd><time datetime="2026-07-10">July 10, 2026</time></dd></div>
+          <div><dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.21731494">10.5281/zenodo.21731494</a></dd></div>
+        </dl>
+      </div>
+    </section>
+
     <section class="section shell" id="open-source">
-      <div class="section-heading split"><div><p class="kicker">07 / Open source &amp; reproducible</p><h2>An inspectable overlay, not a black box.</h2></div><p>The repository packages profiles, prompts, templates, operating policies, bootstrap and validation scripts, public documentation, and sanitized configuration.</p></div>
+      <div class="section-heading split"><div><p class="kicker">08 / Open source &amp; reproducible</p><h2>An inspectable overlay, not a black box.</h2></div><p>The repository packages profiles, prompts, templates, operating policies, bootstrap and validation scripts, public documentation, and sanitized configuration.</p></div>
       <div class="repo-strip"><div><span>License</span><b>MIT</b></div><div><span>Runtime</span><b>Pinned Hermes dependency</b></div><div><span>Public state</span><b>Sanitized by design</b></div><div><span>Private state</span><b>Never committed</b></div></div>
       <div class="actions"><a class="button" href="https://github.com/icidade/miniCISO">View repository</a><a class="button button-ghost" href="https://github.com/icidade/miniCISO/blob/main/INSTALL.md">Installation guide</a><a class="text-link" href="https://github.com/icidade/miniCISO/security/policy">Security policy →</a></div>
     </section>
 
     <section class="section docs-section" id="docs"><div class="shell">
-      <div class="section-heading"><p class="kicker">08 / Documentation gateway</p><h2>Go deeper when you need the details.</h2></div>
+      <div class="section-heading"><p class="kicker">09 / Documentation gateway</p><h2>Go deeper when you need the details.</h2></div>
       <div class="docs-grid">
         <a href="https://github.com/icidade/miniCISO/wiki/Core-Concepts"><span>01</span><h3>Start here</h3><p>Understand the operating model.</p></a><a href="https://github.com/icidade/miniCISO/wiki/First-Assessment"><span>02</span><h3>First assessment</h3><p>Prepare evidence and scope.</p></a><a href="https://github.com/icidade/miniCISO/wiki/Meet-the-Staff"><span>03</span><h3>Meet the staff</h3><p>Explore roles and boundaries.</p></a><a href="https://github.com/icidade/miniCISO/wiki/Architecture"><span>04</span><h3>Architecture</h3><p>See trust and coordination.</p></a><a href="https://github.com/icidade/miniCISO/wiki/Installation-and-Operations"><span>05</span><h3>Installation</h3><p>Bootstrap the pinned runtime.</p></a><a href="https://github.com/icidade/miniCISO/wiki/Engagement-Playbooks"><span>06</span><h3>Playbooks</h3><p>Choose an engagement pattern.</p></a><a href="https://github.com/icidade/miniCISO/wiki/Security-and-Privacy"><span>07</span><h3>Security &amp; privacy</h3><p>Protect sensitive runtime state.</p></a><a href="https://github.com/icidade/miniCISO/wiki/Troubleshooting-and-FAQ"><span>08</span><h3>Troubleshooting</h3><p>Resolve common issues.</p></a>
       </div>
@@ -140,6 +166,6 @@
     <section class="section about shell"><img src="assets/logo-dark.png" alt="MiniCISO network mark" width="164" height="168" loading="lazy"><div><p class="kicker">About the project</p><h2>Independent security engineering, built in public.</h2><p>MiniCISO is an independent open-source security engineering project created by Irlan Cidade. It explores how specialized agents, explicit operating policies, evidence management, and human oversight can support more structured security assessments.</p><div class="actions"><a class="text-link" href="mailto:icidade@gmail.com">Email Irlan →</a><a class="text-link" href="https://www.linkedin.com/company/miniciso">LinkedIn →</a></div></div></section>
   </main>
 
-  <footer><div class="shell footer-grid"><div><a class="brand" href="#top"><img src="assets/logo-dark.png" alt="" width="38" height="39"><span>mini<span>CISO</span></span></a><p>Evidence-driven security orchestration for human-accountable assessments.</p></div><div class="footer-links"><a href="https://github.com/icidade/miniCISO">Repository</a><a href="https://github.com/icidade/miniCISO/wiki">Wiki</a><a href="https://github.com/icidade/miniCISO/wiki/First-Assessment">First assessment</a><a href="https://github.com/icidade/miniCISO/blob/main/INSTALL.md">Installation</a><a href="https://github.com/icidade/miniCISO/security/policy">Security policy</a><a href="https://github.com/icidade/miniCISO/blob/main/LICENSE">License</a><a href="https://www.linkedin.com/company/miniciso">LinkedIn</a><a href="mailto:icidade@gmail.com">Email</a></div></div><div class="shell footer-bottom"><span>MiniCISO © 2026</span><span>Open source under the MIT License</span></div></footer>
+  <footer><div class="shell footer-grid"><div><a class="brand" href="#top"><img src="assets/logo-dark.png" alt="" width="38" height="39"><span>mini<span>CISO</span></span></a><p>Evidence-driven security orchestration for human-accountable assessments.</p></div><div class="footer-links"><a href="https://github.com/icidade/miniCISO">Repository</a><a href="https://github.com/icidade/miniCISO/wiki">Wiki</a><a href="#research">Research</a><a href="https://github.com/icidade/miniCISO/wiki/First-Assessment">First assessment</a><a href="https://github.com/icidade/miniCISO/blob/main/INSTALL.md">Installation</a><a href="https://github.com/icidade/miniCISO/security/policy">Security policy</a><a href="https://github.com/icidade/miniCISO/blob/main/LICENSE">License</a><a href="https://www.linkedin.com/company/miniciso">LinkedIn</a><a href="mailto:icidade@gmail.com">Email</a></div></div><div class="shell footer-bottom"><span>MiniCISO © 2026</span><span>Open source under the MIT License</span></div></footer>
 </body>
 </html>
