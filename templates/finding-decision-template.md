@@ -93,3 +93,14 @@ next_action:
 - `GO` → report drafting may begin.
 - `RESEARCH` → produce a safe impact-validation plan.
 - `NO-GO` → block submission and register the lesson learned.
+
+## Optional institutional retrieval companion
+
+When the case resembles a prior MiniCISO failure mode or QA correction, pair this artifact with an `Institutional Retrieval` block that records:
+
+- lessons consulted;
+- applicability level;
+- prohibited inference to avoid;
+- effect on confidence, evidence threshold, or next step.
+
+The companion capability is documented in [`../docs/institutional-learning-capability.md`](../docs/institutional-learning-capability.md).
