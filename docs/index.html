@@ -84,7 +84,7 @@
     <section class="section section-panel" id="how"><div class="shell">
       <div class="section-heading split"><div><p class="kicker">02 / How it works</p><h2>One engagement. Nine disciplined stages.</h2></div><p>The Chief of Staff scopes the work, selects the right specialists, correlates their analysis, and enforces QA before synthesis.</p></div>
       <ol class="lifecycle">
-        <li><b>01</b><span>Intake &amp; scope</span></li><li><b>02</b><span>Evidence collection</span></li><li><b>03</b><span>Hypothesis formation</span></li><li><b>04</b><span>Selective retrieval</span></li><li><b>05</b><span>SME analysis</span></li><li><b>06</b><span>Cross-SME correlation</span></li><li class="gate"><b>07</b><span>Security QA</span></li><li><b>08</b><span>Final synthesis</span></li><li><b>09</b><span>Follow-up &amp; lessons</span></li>
+        <li><b>01</b><span>Intake &amp; scope</span></li><li><b>02</b><span>Evidence collection</span></li><li><b>03</b><span>Hypothesis formation</span></li><li><b>04</b><span>Selective retrieval</span></li><li><b>05</b><span>SME analysis</span></li><li><b>06</b><span>Cross-SME correlation</span></li><li class="gate"><b>07</b><span>Security QA</span></li><li><b>08</b><span>Final synthesis</span></li><li><b>09</b><span>Reflection &amp; lessons</span></li>
       </ol>
       <figure class="diagram"><img src="assets/diagram.png" alt="Evidence input flows through a central coordinator and eight specialized agent nodes, then through a mandatory QA gate into a structured assessment." width="1704" height="755" loading="lazy"></figure>
     </div></section>
@@ -120,9 +120,39 @@
     <section class="section shell" id="evidence">
       <div class="section-heading split"><div><p class="kicker">05 / Evidence-driven by design</p><h2>Fewer unsupported conclusions. More accountable decisions.</h2></div><p>MiniCISO preserves the difference between what is known, what is inferred, and what still needs research.</p></div>
       <div class="operating-grid">
-        <article><h3>Evidence ≠ inference</h3><p>Source artifacts and analyst interpretation remain distinguishable and traceable.</p></article><article><h3>GO / RESEARCH / NO-GO</h3><p>Finding candidates advance, return for evidence, or stop based on explicit gates.</p></article><article><h3>Recon is not a finding</h3><p>Discovery prioritizes attack surface; validated evidence is required for a security claim.</p></article><article><h3>Mandatory Security QA</h3><p>An adversarial quality gate checks scope, impact, evidence sufficiency, and confidence.</p></article><article><h3>Headroom</h3><p>Structured artifact handling preserves provenance while controlling the context used for analysis.</p></article><article><h3>KAG-oriented retrieval</h3><p>Selective retrieval connects scope, vulnerability, evidence, and decision context when useful.</p></article>
+        <article><h3>Evidence ≠ inference</h3><p>Source artifacts and analyst interpretation remain distinguishable and traceable.</p></article><article><h3>GO / RESEARCH / NO-GO</h3><p>Finding candidates advance, return for evidence, or stop based on explicit gates.</p></article><article><h3>Recon is not a finding</h3><p>Discovery prioritizes attack surface; validated evidence is required for a security claim.</p></article><article><h3>Mandatory Security QA</h3><p>An adversarial quality gate checks scope, impact, evidence sufficiency, and confidence.</p></article><article><h3>Headroom</h3><p>Structured artifact handling preserves provenance while controlling the context used for analysis.</p></article><article><h3>KAG-oriented retrieval</h3><p>Selective retrieval connects scope, vulnerability, evidence, and decision context when useful.</p></article><article><h3>Institutional learning</h3><p>Prior lessons can shape analysis plans, raise evidence thresholds, tighten claims, and trigger QA guardrails&mdash;without replacing evidence from the current engagement.</p></article>
       </div>
       <p><a class="text-link" href="https://github.com/icidade/miniCISO/blob/main/docs/kag-finding-validation.md">Read the finding validation model <span aria-hidden="true">→</span></a></p>
+
+      <div class="learning-block reveal" aria-labelledby="institutional-learning-title">
+        <div class="learning-heading">
+          <p class="eyebrow">Institutional Learning</p>
+          <h2 id="institutional-learning-title">Memory stores information. Experience stores judgment.</h2>
+          <p>MiniCISO evaluates relevant lessons from prior engagements before, during, and after security analysis. Previous experience can expose known failure modes, strengthen evidence discipline, and inform Security QA&mdash;but it cannot substitute proof from the current case.</p>
+        </div>
+
+        <figure class="learning-model" aria-labelledby="learning-cycle-caption">
+          <figcaption id="learning-cycle-caption" class="sr-only">Institutional learning cycle with direct evidence as the non-substitutable basis for every engagement.</figcaption>
+          <div class="evidence-core"><span>Non-substitutable basis</span><strong>Direct evidence</strong></div>
+          <ol class="learning-cycle">
+            <li><b>01</b><span>Current engagement</span></li>
+            <li><b>02</b><span>Retrieve relevant lessons</span></li>
+            <li><b>03</b><span>Evidence-driven reasoning</span></li>
+            <li><b>04</b><span>Independent QA &amp; reflection</span></li>
+            <li><b>05</b><span>Register new lessons</span></li>
+            <li><b>06</b><span>Future engagements</span><small>Return to current engagement</small></li>
+          </ol>
+        </figure>
+
+        <div class="learning-moments">
+          <article><span>Before analysis</span><p>Relevant lessons help shape the assessment plan and warn SMEs about previous failure modes.</p></article>
+          <article><span>During analysis</span><p>Prior experience helps detect repeated reasoning errors, weak analogies, and unsupported escalation of impact.</p></article>
+          <article><span>After analysis</span><p>NO-GO decisions, blocked work, and material QA corrections can become reusable lessons for future engagements.</p></article>
+        </div>
+
+        <p class="learning-boundary">Lessons guide reasoning. They never replace fresh evidence.</p>
+        <p class="learning-link"><a class="text-link" href="https://github.com/icidade/miniCISO/blob/main/docs/institutional-learning-capability.md">Explore the institutional learning model <span aria-hidden="true">→</span></a></p>
+      </div>
     </section>
 
     <section class="section section-panel" id="architecture"><div class="shell architecture-grid">
