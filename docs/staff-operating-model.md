@@ -63,6 +63,21 @@ Separate evidence into three layers whenever possible:
 
 If those layers conflict, report the divergence explicitly instead of collapsing them into a single conclusion.
 
+## Institutional learning discipline
+
+Before promoting a claim, MiniCISO should evaluate whether prior lessons learned reveal a known failure mode in the current reasoning path.
+
+Typical questions:
+
+- are we repeating a previously rejected inference?
+- are we inflating a technical primitive into a qualifying finding?
+- are we treating declared state as effective state?
+- are we relying on precedent where fresh evidence is required?
+
+Lessons learned may tighten the plan, claims, confidence, and evidence threshold, but they never replace direct evidence from the current case.
+
+The public capability contract is documented in [`docs/institutional-learning-capability.md`](institutional-learning-capability.md).
+
 ## Pre-submission finding gate
 
 Before drafting any external bug bounty or vulnerability report, MiniCISO must run a KAG-oriented decision gate.

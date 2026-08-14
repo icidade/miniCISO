@@ -6,6 +6,8 @@ This document defines the mandatory pre-submission validation gate for MiniCISO 
 
 Use KAG to prevent technical primitives, expected product behavior, or theoretical impact from being promoted into qualifying vulnerabilities without sufficient evidence.
 
+KAG may be paired with institutional retrieval of lessons learned when prior MiniCISO experience reveals known error patterns, weak analogies, or QA guardrails that should constrain the analysis. That precedent can tighten reasoning, but never replaces direct evidence for the current case.
+
 The KAG role at this stage is not only to retrieve general vulnerability knowledge. It must connect:
 
 - observed behavior;

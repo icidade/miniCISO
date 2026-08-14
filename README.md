@@ -20,9 +20,9 @@ MiniCISO builds on that runtime as an agentic security staff, distributed as a r
 ## Why MiniCISO
 
 MiniCISO packages a reusable security operating model around Hermes:
-- a `chief-of-staff` coordinator for intake, routing, synthesis, and QA enforcement;
+- a `chief-of-staff` coordinator for intake, routing, synthesis, QA enforcement, and institutional retrieval of lessons learned;
 - specialized security SMEs for threat modeling, architecture, code review, AppSec, compliance, offensive validation, recon, and QA;
-- evidence-driven workflows with explicit gates for finding validation and post-submission follow-up.
+- evidence-driven workflows with explicit gates for finding validation, lessons-learned reuse, and post-submission follow-up.
 
 It is designed to help a human operator run structured security engagements more consistently. It does **not** replace human authorization, judgment, or accountable decision-making.
 
@@ -95,8 +95,11 @@ This repository contains only non-secret configuration and sanitized public cont
 
 For external vulnerability or bug bounty work, report drafting starts only after a `GO` decision. `RESEARCH` means produce an impact-validation plan, and `NO-GO` means block submission and capture the lesson learned.
 
+MiniCISO can also evaluate prior operational experience through institutional retrieval of lessons learned before and during analysis, so repeated methodological errors are less likely to survive into a final claim.
+
 Canonical sources:
 - [`docs/kag-finding-validation.md`](docs/kag-finding-validation.md)
+- [`docs/institutional-learning-capability.md`](docs/institutional-learning-capability.md)
 - [`templates/finding-decision-template.md`](templates/finding-decision-template.md)
 - [`docs/submission-followup.md`](docs/submission-followup.md)
 - [`templates/submission-followup-template.md`](templates/submission-followup-template.md)
@@ -128,6 +131,7 @@ MiniCISO can maintain a public, sanitized copy of selected runtime-safe artifact
 
 ### Finding validation and follow-up
 - [KAG-oriented finding validation](docs/kag-finding-validation.md)
+- [Institutional learning capability](docs/institutional-learning-capability.md)
 - [External submission follow-up](docs/submission-followup.md)
 
 ### Operations
