@@ -97,6 +97,18 @@ for profile in "${profiles[@]}"; do
   cp "$source_soul" "$destination_soul"
 done
 
+skills_source="$REPO_ROOT/skills"
+if [[ -d "$skills_source" ]]; then
+  chief_skills_root="$profile_root/chief-of-staff/skills"
+  mkdir -p "$chief_skills_root"
+  while IFS= read -r -d '' skill_file; do
+    rel_path="${skill_file#"$skills_source/"}"
+    destination_skill="$chief_skills_root/$rel_path"
+    mkdir -p "$(dirname "$destination_skill")"
+    cp "$skill_file" "$destination_skill"
+  done < <(find "$skills_source" -type f -print0)
+fi
+
 mkdir -p "$WORKSPACE_ROOT"/{inputs,drafts,qa,reports,templates}
 cp "$REPO_ROOT"/templates/* "$WORKSPACE_ROOT/templates/"
 

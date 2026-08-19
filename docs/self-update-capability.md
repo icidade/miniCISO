@@ -7,6 +7,7 @@ This capability exists to keep the public `miniCISO` repository aligned with the
 Generate a public and safe copy of:
 
 - local Headroom/KAG tools that make sense as public overlay assets;
+- bundled `chief-of-staff` MiniCISO skills that should ship as defaults;
 - a sanitized snapshot of the `chief-of-staff` profile's non-secret configuration;
 - non-confidential methodology documentation.
 
@@ -16,6 +17,7 @@ The current safe export covers:
 
 - `tools/headroom_phase1/*.py`
 - `tools/headroom_phase1/tests/test_*.py`
+- `skills/security/**/SKILL.md`
 - `config/chief-of-staff.public.yaml`
 
 ## What stays out
@@ -33,7 +35,7 @@ Never export:
 
 The current export is **allowlisted + scanned + reviewed-by-diff**:
 
-- it copies only a fixed set of public Headroom/KAG files;
+- it copies only a fixed set of public Headroom/KAG files and bundled MiniCISO skills;
 - it blocks if suspicious secret or operational-state patterns are detected;
 - it still requires human review of `git diff` before commit/push.
 

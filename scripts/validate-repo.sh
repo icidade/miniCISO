@@ -17,6 +17,9 @@ required_files=(
   scripts/smoke-test.ps1 scripts/smoke-test.sh
   scripts/validate-repo.ps1 scripts/validate-repo.sh
   meta/MANIFEST.json meta/SUMMARY.json
+  skills/security/miniciso-kag-finding-gate/SKILL.md
+  skills/security/miniciso-headroom-phase1/SKILL.md
+  skills/security/miniciso-institutional-learning/SKILL.md
 )
 for file in "${required_files[@]}"; do
   [[ -f "$REPO_ROOT/$file" ]] || fail "required file missing: $file"
@@ -69,6 +72,29 @@ import sys
 import yaml
 path = pathlib.Path(sys.argv[1])
 yaml.safe_load(path.read_text(encoding='utf-8'))
+PY
+
+  python3 - <<'PY' "$REPO_ROOT" || fail 'invalid skill frontmatter'
+import pathlib
+import re
+import sys
+import yaml
+
+repo = pathlib.Path(sys.argv[1])
+for path in repo.glob('skills/**/SKILL.md'):
+    content = path.read_text(encoding='utf-8')
+    if not content.startswith('---\n'):
+        raise SystemExit(f'{path}: missing opening frontmatter delimiter')
+    match = re.search(r'\n---\n', content[4:])
+    if not match:
+        raise SystemExit(f'{path}: missing closing frontmatter delimiter')
+    end = 4 + match.start()
+    frontmatter = yaml.safe_load(content[4:end])
+    if not isinstance(frontmatter, dict):
+        raise SystemExit(f'{path}: frontmatter not mapping')
+    for key in ('name', 'description'):
+        if not frontmatter.get(key):
+            raise SystemExit(f'{path}: missing {key}')
 PY
 fi
 

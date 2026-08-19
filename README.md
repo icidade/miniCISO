@@ -22,6 +22,7 @@ MiniCISO builds on that runtime as an agentic security staff, distributed as a r
 MiniCISO packages a reusable security operating model around Hermes:
 - a `chief-of-staff` coordinator for intake, routing, synthesis, QA enforcement, and institutional retrieval of lessons learned;
 - specialized security SMEs for threat modeling, architecture, code review, AppSec, compliance, offensive validation, recon, and QA;
+- bundled MiniCISO skills for KAG finding gating, Headroom Phase 1 selective retrieval, and institutional learning;
 - evidence-driven workflows with explicit gates for finding validation, lessons-learned reuse, and post-submission follow-up.
 
 It is designed to help a human operator run structured security engagements more consistently. It does **not** replace human authorization, judgment, or accountable decision-making.
@@ -44,7 +45,7 @@ cd miniCISO
 ./scripts/bootstrap.sh
 ```
 
-The bootstrap restores the pinned Hermes runtime, creates the MiniCISO profile set, installs the overlay prompts and templates, prepares the shared workspace, and runs structural checks.
+The bootstrap restores the pinned Hermes runtime, creates the MiniCISO profile set, installs the overlay prompts, bundled `chief-of-staff` skills, and templates, prepares the shared workspace, and runs structural checks.
 
 Credentials requested by `hermes setup` stay in the user's Hermes environment. They are never copied into this repository.
 
@@ -62,6 +63,11 @@ MiniCISO ships the following public profile set:
 - `security-qa`
 
 For responsibilities, handoffs, and usage examples, see the wiki staff guide and the canonical profile contract in [`docs/profile-setup.md`](docs/profile-setup.md).
+
+Bundled `chief-of-staff` skills installed by bootstrap:
+- `miniciso-kag-finding-gate`
+- `miniciso-headroom-phase1`
+- `miniciso-institutional-learning`
 
 ## Validate the installation
 

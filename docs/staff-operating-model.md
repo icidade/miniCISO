@@ -76,7 +76,7 @@ Typical questions:
 
 Lessons learned may tighten the plan, claims, confidence, and evidence threshold, but they never replace direct evidence from the current case.
 
-The public capability contract is documented in [`docs/institutional-learning-capability.md`](institutional-learning-capability.md).
+The public capability contract is documented in [`docs/institutional-learning-capability.md`](institutional-learning-capability.md), and the bundled runtime skill is `miniciso-institutional-learning`.
 
 ## Pre-submission finding gate
 
@@ -88,7 +88,7 @@ Mandatory rule:
 - if the result is `RESEARCH`, produce an impact-validation plan instead of a submission draft.
 - if the result is `NO-GO`, block submission and register the lesson learned.
 
-The mandatory gate is documented in [`docs/kag-finding-validation.md`](kag-finding-validation.md).
+The mandatory gate is documented in [`docs/kag-finding-validation.md`](kag-finding-validation.md), and the bundled runtime skill is `miniciso-kag-finding-gate`.
 
 Every candidate finding must produce a pre-submission decision artifact that records:
 

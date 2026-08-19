@@ -113,6 +113,18 @@ foreach ($profile in $profiles) {
     Copy-Item -LiteralPath $sourceSoul -Destination $destinationSoul -Force
 }
 
+$skillsSource = Join-Path $repoRoot 'skills'
+if (Test-Path -LiteralPath $skillsSource) {
+    $chiefSkillsRoot = Join-Path $profileRoot 'chief-of-staff\skills'
+    New-Item -ItemType Directory -Path $chiefSkillsRoot -Force | Out-Null
+    Get-ChildItem -LiteralPath $skillsSource -Recurse -File | ForEach-Object {
+        $relative = $_.FullName.Substring($skillsSource.Length + 1)
+        $destination = Join-Path $chiefSkillsRoot $relative
+        New-Item -ItemType Directory -Path ([IO.Path]::GetDirectoryName($destination)) -Force | Out-Null
+        Copy-Item -LiteralPath $_.FullName -Destination $destination -Force
+    }
+}
+
 foreach ($directory in @('inputs', 'drafts', 'qa', 'reports', 'templates')) {
     New-Item -ItemType Directory -Path (Join-Path $WorkspaceRoot $directory) -Force | Out-Null
 }

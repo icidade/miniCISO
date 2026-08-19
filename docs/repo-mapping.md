@@ -8,6 +8,9 @@ This repository is the canonical public MiniCISO overlay. It is consumed directl
 profiles/<profile>/SOUL.md
   -> ~/.hermes/profiles/<profile>/SOUL.md
 
+skills/*
+  -> ~/.hermes/profiles/chief-of-staff/skills/*
+
 templates/*
   -> ~/miniciso-security/templates/*
 
@@ -20,6 +23,8 @@ The `inputs`, `drafts`, `qa`, `reports`, and `templates` directories are created
 ## Chief of staff
 
 `chief-of-staff` is a dedicated named profile, not the default Hermes profile. For that reason, its full `SOUL.md` is managed by the overlay. The snippet in `chief-of-staff/` remains only as a reference for users who prefer manual integration.
+
+Bundled MiniCISO skills are also installed into the `chief-of-staff` profile so KAG gating, Headroom Phase 1, and institutional-learning behavior ship as first-class skills rather than docs-only conventions.
 
 ## Public runtime exports
 

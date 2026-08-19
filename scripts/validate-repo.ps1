@@ -15,7 +15,10 @@ $requiredFiles = @(
     'scripts/bootstrap.ps1', 'scripts/bootstrap.sh',
     'scripts/smoke-test.ps1', 'scripts/smoke-test.sh',
     'scripts/validate-repo.ps1', 'scripts/validate-repo.sh',
-    'meta/MANIFEST.json', 'meta/SUMMARY.json'
+    'meta/MANIFEST.json', 'meta/SUMMARY.json',
+    'skills/security/miniciso-kag-finding-gate/SKILL.md',
+    'skills/security/miniciso-headroom-phase1/SKILL.md',
+    'skills/security/miniciso-institutional-learning/SKILL.md'
 )
 foreach ($relative in $requiredFiles) {
     if (-not (Test-Path -LiteralPath (Join-Path $repoRoot $relative))) {
@@ -77,6 +80,35 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'yaml-parse-failed' }
 } catch {
     Add-ValidationError 'config/chief-of-staff.public.yaml is invalid.'
+}
+
+try {
+    $skillCheck = @'
+import pathlib
+import re
+import sys
+import yaml
+
+repo = pathlib.Path(sys.argv[1])
+for path in repo.glob("skills/**/SKILL.md"):
+    content = path.read_text(encoding="utf-8")
+    if not content.startswith("---\n"):
+        raise SystemExit(f"{path}: missing opening frontmatter delimiter")
+    match = re.search(r"\n---\n", content[4:])
+    if not match:
+        raise SystemExit(f"{path}: missing closing frontmatter delimiter")
+    end = 4 + match.start()
+    frontmatter = yaml.safe_load(content[4:end])
+    if not isinstance(frontmatter, dict):
+        raise SystemExit(f"{path}: frontmatter not mapping")
+    for key in ("name", "description"):
+        if not frontmatter.get(key):
+            raise SystemExit(f"{path}: missing {key}")
+'@
+    $skillCheck | python3 - $repoRoot | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'skill-parse-failed' }
+} catch {
+    Add-ValidationError 'Skill frontmatter validation failed.'
 }
 
 $headroomDir = Join-Path $repoRoot 'tools/headroom_phase1'
