@@ -158,6 +158,9 @@ def main() -> int:
         (workspace / "tools/headroom_phase1/tests/test_hr_kag_query.py", repo_root / "tools/headroom_phase1/tests/test_hr_kag_query.py"),
         (workspace / "tools/headroom_phase1/tests/test_hr_selective_retrieval.py", repo_root / "tools/headroom_phase1/tests/test_hr_selective_retrieval.py"),
         (workspace / "tools/headroom_phase1/tests/test_hr_manual_wrapper.py", repo_root / "tools/headroom_phase1/tests/test_hr_manual_wrapper.py"),
+        (profile / "skills/security/miniciso-kag-finding-gate/SKILL.md", repo_root / "skills/security/miniciso-kag-finding-gate/SKILL.md"),
+        (profile / "skills/security/miniciso-headroom-phase1/SKILL.md", repo_root / "skills/security/miniciso-headroom-phase1/SKILL.md"),
+        (profile / "skills/security/miniciso-institutional-learning/SKILL.md", repo_root / "skills/security/miniciso-institutional-learning/SKILL.md"),
     ]
 
     for src, dst in copies:

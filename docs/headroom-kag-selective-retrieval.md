@@ -2,6 +2,8 @@
 
 This document describes the public, sanitized layer of the Headroom evolution toward hypothesis/KAG-guided **selection-first** retrieval.
 
+The Python components under `tools/headroom_phase1/` remain public standalone tools, but MiniCISO also ships the operational skill `miniciso-headroom-phase1` so the `chief-of-staff` can apply them as a default workflow instead of leaving them as orphaned helper files.
+
 ## Motivation
 
 When a structured artifact dominates context cost, the next evolution is not to compress the entire file better. It is to:

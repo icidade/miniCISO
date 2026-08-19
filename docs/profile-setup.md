@@ -43,6 +43,16 @@ Recommended toolsets for security SMEs that produce artifacts:
 terminal, file, web, skills, memory, session_search, delegation, todo
 ```
 
+## Bundled chief-of-staff skills
+
+MiniCISO also ships reusable `chief-of-staff` skills that bootstrap installs into the profile-local Hermes skills tree:
+
+- `miniciso-kag-finding-gate`
+- `miniciso-headroom-phase1`
+- `miniciso-institutional-learning`
+
+These are part of the default coordinator runtime, not optional side files.
+
 ## SOUL.md role boundaries
 
 Each SME should explicitly include:
@@ -52,6 +62,7 @@ Each SME should explicitly include:
 - Do not assume access to employer/confidential/third-party systems.
 - Mark non-final outputs as `DRAFT - pending QA`.
 - Final reports must pass through `security-qa`.
+- Use the bundled KAG / Headroom / institutional-learning skills when their trigger conditions apply.
 
 For offensive-security SMEs, include stronger boundaries:
 

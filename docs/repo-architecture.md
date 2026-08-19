@@ -33,6 +33,10 @@ hermes-miniciso/
     security-offensive-security/SOUL.md
     security-recon-attack-surface-strategist/SOUL.md
     security-qa/SOUL.md
+  skills/
+    security/miniciso-kag-finding-gate/SKILL.md
+    security/miniciso-headroom-phase1/SKILL.md
+    security/miniciso-institutional-learning/SKILL.md
   templates/
     intake-template.md
     report-template.md
@@ -57,6 +61,7 @@ hermes-miniciso/
 ### Keep in this repo
 - operating model
 - prompts and `SOUL.md`
+- in-repo reusable skills that should ship with the overlay
 - staff definitions
 - templates
 - helper scripts

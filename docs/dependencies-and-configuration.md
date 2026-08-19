@@ -72,6 +72,7 @@ env -u VIRTUAL_ENV uv run bigua-analyzer --help
 
 **Repo-side location:**
 - `tools/headroom_phase1/`
+- `skills/security/miniciso-headroom-phase1/SKILL.md`
 - `config/chief-of-staff.public.yaml`
 
 **Guardrails:**

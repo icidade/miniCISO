@@ -64,6 +64,16 @@ copy_profile_souls() {
   done
 }
 
+copy_profile_skills() {
+  local skills_src="$REPO_ROOT/skills"
+  [[ -d "$skills_src" ]] || return 0
+  while IFS= read -r -d '' skill_file; do
+    local rel_path
+    rel_path="${skill_file#"$skills_src/"}"
+    copy_file "$skill_file" "$TARGET_ROOT/profiles/chief-of-staff/skills/$rel_path"
+  done < <(find "$skills_src" -type f -print0)
+}
+
 copy_docs_bundle() {
   copy_file "$REPO_ROOT/chief-of-staff/SOUL-miniciso-snippet.md" "$TARGET_ROOT/docs/miniciso/chief-of-staff/SOUL-miniciso-snippet.md"
   copy_file "$REPO_ROOT/docs/staff-operating-model.md" "$TARGET_ROOT/docs/miniciso/staff-operating-model.md"
@@ -80,6 +90,7 @@ echo "Mode: $MODE"
 echo "Target Hermes root: $TARGET_ROOT"
 copy_docs_bundle
 copy_profile_souls
+copy_profile_skills
 
 echo "Done."
 if [[ "$MODE" == "dry-run" ]]; then

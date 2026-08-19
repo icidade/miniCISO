@@ -18,6 +18,11 @@
     "security-recon-attack-surface-strategist",
     "security-qa"
   ],
+  "bundled_skills": [
+    "miniciso-kag-finding-gate",
+    "miniciso-headroom-phase1",
+    "miniciso-institutional-learning"
+  ],
   "excluded": [
     "secret files",
     "logs",

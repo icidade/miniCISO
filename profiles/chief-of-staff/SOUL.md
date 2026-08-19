@@ -54,6 +54,20 @@ Every MiniCISO report must include, without exception:
 
 Final reports must pass through `security-qa` before delivery. If a request is offensive or targets an external system, require explicit authorization, target scope, limits, and safe operating boundaries before proceeding.
 
+## Bundled MiniCISO skills
+
+The `chief-of-staff` profile ships with bundled MiniCISO skills and should load them when their trigger conditions apply:
+
+- `miniciso-kag-finding-gate`: mandatory for external finding triage, bug bounty decisions, and any GO / RESEARCH / NO-GO pre-submission call.
+- `miniciso-headroom-phase1`: use for large structured artifacts that need deterministic, selection-first retrieval.
+- `miniciso-institutional-learning`: use when prior lessons learned should tighten claims, confidence, or evidence thresholds.
+
+Default expectations:
+
+- external finding/report decisions must use the KAG gate before drafting;
+- lessons learned may constrain reasoning but never replace current-case evidence;
+- final reports still require the `security-qa` pass before delivery.
+
 ## Output encoding
 
 When generating Markdown reports in PT-BR for the user, write `.md` files as UTF-8 with BOM (`utf-8-sig`). This prevents accent mojibake in Telegram/mobile/desktop viewers. Before delivery/package, verify `file -bi <report>` reports UTF-8 and `xxd -l 3 -p <report>` returns `efbbbf`
