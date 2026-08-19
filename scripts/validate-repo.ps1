@@ -13,8 +13,10 @@ $requiredFiles = @(
     'README.md', 'INSTALL.md', 'LICENSE', 'SECURITY.md', '.env.example',
     'config/hermes-version.env', 'config/tooling-dependencies.example.yaml', 'config/chief-of-staff.public.yaml',
     'scripts/bootstrap.ps1', 'scripts/bootstrap.sh',
+    'scripts/check_bundled_capabilities.py',
     'scripts/smoke-test.ps1', 'scripts/smoke-test.sh',
     'scripts/validate-repo.ps1', 'scripts/validate-repo.sh',
+    'scripts/tests/test_check_bundled_capabilities.py',
     'meta/MANIFEST.json', 'meta/SUMMARY.json',
     'skills/security/miniciso-kag-finding-gate/SKILL.md',
     'skills/security/miniciso-headroom-phase1/SKILL.md',
@@ -109,6 +111,13 @@ for path in repo.glob("skills/**/SKILL.md"):
     if ($LASTEXITCODE -ne 0) { throw 'skill-parse-failed' }
 } catch {
     Add-ValidationError 'Skill frontmatter validation failed.'
+}
+
+try {
+    python3 (Join-Path $repoRoot 'scripts/check_bundled_capabilities.py') | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'bundled-capabilities-failed' }
+} catch {
+    Add-ValidationError 'Bundled capability contract failed.'
 }
 
 $headroomDir = Join-Path $repoRoot 'tools/headroom_phase1'

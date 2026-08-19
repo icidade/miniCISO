@@ -74,12 +74,14 @@ Bundled `chief-of-staff` skills installed by bootstrap:
 Offline repository validation:
 
 ```powershell
-.\scripts\validate-repo.ps1
+.\\scripts\\validate-repo.ps1
 ```
 
 ```bash
 ./scripts/validate-repo.sh
 ```
+
+The validation pipeline now includes a bundled-capability contract check so future changes cannot silently drop the distributed `chief-of-staff` skills, their SOUL references, or their bootstrap/sync wiring.
 
 Runtime smoke test after bootstrap:
 
