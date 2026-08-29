@@ -55,8 +55,8 @@ You can also point to explicit sources:
 
 ```bash
 python3 scripts/export_safe_self_state.py \
-  --source-workspace <local-miniciso-workspace> \
-  --source-profile <local-hermes-profile-root> \
+  --source-workspace <local-workspace-root> \
+  --source-profile <hermes-profile-root> \
   --apply
 ```
 

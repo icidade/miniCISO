@@ -7,7 +7,7 @@ This document captures the MiniCISO-side design and documentation updates aligne
 Implement a mandatory, provider-independent governance layer for MiniCISO that preserves evidence quality and independent QA while preventing runaway token/context/tool consumption.
 
 ## Repositories inspected
-- MiniCISO overlay checkout: `<miniCISO-repo-root>`
+- MiniCISO overlay checkout: `<miniciso-repo-root>`
 - Hermes runtime checkout: `<hermes-agent-repo-root>`
 
 ## Existing integration points

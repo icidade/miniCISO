@@ -72,7 +72,7 @@ if [[ "$SKIP_PROVIDER_SETUP" == false ]]; then
   hermes setup
 fi
 
-profile_root="$HOME/.hermes/profiles"
+profile_root="$HERMES_HOME/profiles"
 profiles=()
 for profile_dir in "$REPO_ROOT"/profiles/*; do
   [[ -d "$profile_dir" ]] && profiles+=("${profile_dir##*/}")

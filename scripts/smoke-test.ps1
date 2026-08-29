@@ -3,6 +3,7 @@ param([switch]$Online)
 
 $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$hermesHome = if ($env:HERMES_HOME) { $env:HERMES_HOME } else { Join-Path $HOME '.hermes' }
 $profiles = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'profiles') -Directory | Sort-Object Name
 $hermes = Get-Command hermes -ErrorAction Stop
 $profileList = (& $hermes.Source profile list 2>&1 | Out-String)
@@ -12,7 +13,7 @@ foreach ($profile in $profiles) {
     if ($profileList -notmatch [regex]::Escape($profile.Name)) {
         throw "Profile not registered in Hermes: $($profile.Name)"
     }
-    $installedSoul = Join-Path $HOME ".hermes\profiles\$($profile.Name)\SOUL.md"
+    $installedSoul = Join-Path $hermesHome "profiles\$($profile.Name)\SOUL.md"
     if (-not (Test-Path -LiteralPath $installedSoul)) {
         throw "SOUL.md not installed: $($profile.Name)"
     }

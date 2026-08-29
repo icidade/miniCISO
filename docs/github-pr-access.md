@@ -74,8 +74,8 @@ gh auth status
 Always valid:
 
 ```bash
-git -C <miniCISO-repo-root> remote -v
-git -C <miniCISO-repo-root> ls-remote origin
+git -C <miniciso-repo-root> remote -v
+git -C <miniciso-repo-root> ls-remote origin
 ```
 
 To validate the API directly:
@@ -97,7 +97,7 @@ PY
 ### With `gh`
 
 ```bash
-cd <miniCISO-repo-root>
+cd <miniciso-repo-root>
 git checkout -b chore/my-change
 # edit / export / validate
 git add -A
