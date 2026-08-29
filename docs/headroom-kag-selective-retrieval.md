@@ -45,6 +45,49 @@ The initial recommendation is to run in **shadow mode**:
 4. continue running the raw/full flow in parallel;
 5. compare savings, recovered evidence, and `decision_delta`.
 
+## RTK execution output optimizer (experimental)
+
+A second, narrower experiment now lives beside the wrapper in `tools/headroom_phase1/`: the **RTK execution output optimizer**.
+
+Its contract is intentionally strict:
+
+- `raw` remains authoritative at all times;
+- the optimizer runs only in **shadow mode** by default;
+- the reduced view is derivative/log-only and never replaces the effective payload;
+- a single env var kill switch restores baseline behavior immediately.
+
+### Included MVP operation classes
+
+- `git_status`
+- `git_diff_stat`
+- `ls`
+- `find`
+- `tree`
+- `git_fetch`
+
+### Explicitly excluded from this MVP
+
+- `read_file`
+- `search_files`
+- `grep`
+- evidence artifacts
+- reports / findings
+- SARIF / SBOM / PoC material
+- HTTP traces
+- SME or Security QA responses
+
+### Runtime knobs
+
+```text
+MINICISO_EXECUTION_OUTPUT_OPTIMIZER=1
+MINICISO_EXECUTION_OUTPUT_OPTIMIZER_MODE=shadow
+MINICISO_EXECUTION_OUTPUT_OPTIMIZER_ALLOWLIST=git_status,git_diff_stat,ls,find,tree,git_fetch
+```
+
+### Rollback rule
+
+Set `MINICISO_EXECUTION_OUTPUT_OPTIMIZER=0` to force passthrough and preserve the pre-experiment baseline without changing the wrapper's real output path.
+
 ## Minimum pack provenance
 
 Each selected slice must preserve, at minimum:

@@ -40,7 +40,7 @@ If you use a classic PAT instead of a fine-grained one:
 Store it outside the repo, in the active profile:
 
 ```bash
-/home/vpsadmin/.hermes/profiles/chief-of-staff/.env
+<hermes-profile-root>/.env
 ```
 
 Add:
@@ -74,8 +74,8 @@ gh auth status
 Always valid:
 
 ```bash
-git -C /home/vpsadmin/miniCISO remote -v
-git -C /home/vpsadmin/miniCISO ls-remote origin
+git -C <miniCISO-repo-root> remote -v
+git -C <miniCISO-repo-root> ls-remote origin
 ```
 
 To validate the API directly:
@@ -97,7 +97,7 @@ PY
 ### With `gh`
 
 ```bash
-cd /home/vpsadmin/miniCISO
+cd <miniCISO-repo-root>
 git checkout -b chore/my-change
 # edit / export / validate
 git add -A

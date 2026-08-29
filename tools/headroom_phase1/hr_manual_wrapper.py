@@ -98,7 +98,11 @@ def parse_args() -> argparse.Namespace:
         help="Human/QA verdict for this artifact run",
     )
     p.add_argument("--note", default="", help="Free-form operator note")
-    p.add_argument("--log-dir", default="/home/vpsadmin/miniciso-security/headroom_phase1/logs", help="Log directory")
+    p.add_argument(
+        "--log-dir",
+        default=str(Path.home() / "miniciso-security/headroom_phase1/logs"),
+        help="Log directory",
+    )
     p.add_argument("--selection-index", default="", help="Path to structural index JSON for selection-first shadow mode")
     p.add_argument("--selection-query", default="", help="Path to KAG query JSON for selection-first shadow mode")
     p.add_argument("--selection-pack", default="", help="Path to retrieval pack JSON for selection-first shadow mode")
