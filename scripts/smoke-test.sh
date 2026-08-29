@@ -15,7 +15,7 @@ done
 
 for profile in "${profiles[@]}"; do
   grep -Fq "$profile" <<<"$profile_list" || { echo "Profile not registered: $profile" >&2; exit 1; }
-  [[ -f "$HOME/.hermes/profiles/$profile/SOUL.md" ]] || { echo "SOUL.md not installed: $profile" >&2; exit 1; }
+  [[ -f "${HERMES_HOME:-$HOME/.hermes}/profiles/$profile/SOUL.md" ]] || { echo "SOUL.md not installed: $profile" >&2; exit 1; }
   echo "OK: $profile"
   if [[ "$ONLINE" == true ]]; then
     hermes -p "$profile" chat -Q -q 'Answer in one line starting with OK and state your role in MiniCISO.'

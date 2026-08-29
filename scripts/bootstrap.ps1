@@ -91,7 +91,7 @@ if (-not $SkipProviderSetup) {
     Invoke-Hermes -Arguments @('setup')
 }
 
-$profileRoot = Join-Path $HOME '.hermes\profiles'
+$profileRoot = Join-Path $HermesHome 'profiles'
 $profiles = Get-ChildItem -LiteralPath (Join-Path $repoRoot 'profiles') -Directory | Sort-Object Name
 if ($profiles.Count -ne 9) { throw "Expected 9 profiles; found $($profiles.Count)." }
 
