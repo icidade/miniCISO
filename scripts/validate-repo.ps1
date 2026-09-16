@@ -14,13 +14,18 @@ $requiredFiles = @(
     'config/hermes-version.env', 'config/tooling-dependencies.example.yaml', 'config/chief-of-staff.public.yaml',
     'scripts/bootstrap.ps1', 'scripts/bootstrap.sh',
     'scripts/check_bundled_capabilities.py',
+    'scripts/install_governance_config.py',
     'scripts/smoke-test.ps1', 'scripts/smoke-test.sh',
     'scripts/validate-repo.ps1', 'scripts/validate-repo.sh',
     'scripts/tests/test_check_bundled_capabilities.py',
+    'scripts/tests/test_runtime_pin_bootstrap_config.py',
     'meta/MANIFEST.json', 'meta/SUMMARY.json',
+    'skills/cost-context-governance/SKILL.md',
     'skills/security/miniciso-kag-finding-gate/SKILL.md',
     'skills/security/miniciso-headroom-phase1/SKILL.md',
-    'skills/security/miniciso-institutional-learning/SKILL.md'
+    'skills/security/miniciso-institutional-learning/SKILL.md',
+    'tools/headroom_phase1/execution_output_optimizer.py',
+    'tools/headroom_phase1/tests/test_execution_output_optimizer.py'
 )
 foreach ($relative in $requiredFiles) {
     if (-not (Test-Path -LiteralPath (Join-Path $repoRoot $relative))) {
@@ -42,7 +47,13 @@ foreach ($profile in $profiles) {
 $versionPath = Join-Path $repoRoot 'config/hermes-version.env'
 if (Test-Path -LiteralPath $versionPath) {
     $versionText = Get-Content -LiteralPath $versionPath -Raw -Encoding UTF8
-    if ($versionText -notmatch '(?m)^HERMES_TAG=v\d{4}\.\d{1,2}\.\d{1,2}\r?$') {
+    if ($versionText -notmatch '(?m)^HERMES_REPOSITORY=https://github\.com/icidade/hermes-agent\.git\r?$') {
+        Add-ValidationError 'HERMES_REPOSITORY must point to the pinned fork.'
+    }
+    if ($versionText -notmatch '(?m)^HERMES_COMMIT=489c6f2103ccca0ac1fc4f6249c71924ec8f024c\r?$') {
+        Add-ValidationError 'HERMES_COMMIT does not match the release pin.'
+    }
+    if ($versionText -notmatch '(?m)^HERMES_TAG=v\d+\.\d+\.\d+(-[A-Za-z0-9.-]+)?\r?$') {
         Add-ValidationError 'HERMES_TAG does not match the expected format.'
     }
     if ($versionText -notmatch '(?m)^HERMES_COMMIT=[0-9a-f]{40}\r?$') {

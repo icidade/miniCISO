@@ -5,10 +5,17 @@ import json
 from pathlib import Path
 
 REQUIRED_SKILLS = [
+    "cost-context-governance",
     "miniciso-kag-finding-gate",
     "miniciso-headroom-phase1",
     "miniciso-institutional-learning",
 ]
+
+
+def _skill_path(repo_root: Path, skill: str) -> Path:
+    if skill.startswith("miniciso-"):
+        return repo_root / "skills" / "security" / skill / "SKILL.md"
+    return repo_root / "skills" / skill / "SKILL.md"
 
 
 def _require_contains(path: Path, needle: str, message: str) -> None:
@@ -21,7 +28,7 @@ def validate_repo(repo_root: Path) -> None:
     repo_root = Path(repo_root)
 
     for skill in REQUIRED_SKILLS:
-        skill_path = repo_root / "skills" / "security" / skill / "SKILL.md"
+        skill_path = _skill_path(repo_root, skill)
         if not skill_path.is_file():
             raise ValueError(f"missing bundled skill file: {skill_path}")
 

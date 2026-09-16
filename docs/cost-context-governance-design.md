@@ -15,7 +15,7 @@ Implement a mandatory, provider-independent governance layer for MiniCISO that p
 ### MiniCISO overlay
 - `profiles/chief-of-staff/SOUL.md`: core Chief-of-Staff operating instructions. Best place to make the governance skill mandatory at the procedural layer.
 - `config/chief-of-staff.public.yaml`: public example config that can expose governance defaults.
-- No existing MiniCISO-owned runtime package for deterministic governance.
+- The governed runtime is supplied by the `icidade/hermes-agent` fork pinned by exact SHA in `config/hermes-version.env`; MiniCISO remains the overlay and does not vendor Hermes.
 
 ### Hermes runtime
 - `run_agent.py`: `AIAgent` wrappers, turn execution entrypoints, tool execution dispatch, `delegate_task` dispatch, context compression hook.
@@ -91,10 +91,10 @@ Implemented now for immediate VPS effect:
 - local JSONL telemetry and engagement summaries.
 
 ## Compatibility risks
-- Hermes currently lacks a native pre-model-call governance abstraction, so the first implementation must patch runtime call sites directly.
+- The release depends on the pinned fork runtime containing the governance implementation; bootstrap verifies repository, HEAD, executable, and Python module provenance before installing the overlay.
 - Tool filtering must not break existing sessions that intentionally grant broader toolsets; fallback is intersection-only when governance is active.
 - Child timeout handling varies by provider/runtime path; partial handoff synthesis must work even when the provider returns no summary.
-- Existing MiniCISO repo has no skill-sync convention yet; immediate VPS install will patch the active profile directly and also stage the skill inside the overlay repo.
+- The bootstrap installs the overlay skill and merges public governance only into the `chief-of-staff` profile; no runtime patchset or private profile state is required.
 
 ## Test plan
 Automated tests will cover at least:
@@ -115,4 +115,4 @@ MiniCISO prompt/skill instructions can require planning and checkpointing, but t
 - atomically coordinate concurrent child consumption from a shared root budget;
 - force structured partial handoffs when runtime timeouts occur.
 
-Therefore the smallest required upstream-compatible change is a generic Hermes runtime governance controller that MiniCISO enables by config. The fallback for unsupported runtimes is visible observation-only mode with explicit warning in child/task results.
+Therefore the smallest required runtime change is the generic governance controller published in the pinned Hermes fork, which MiniCISO enables by config. Headroom Phase 1 remains shadow-only; Headroom Phase 2 is outside v0.7.0.

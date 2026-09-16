@@ -11,6 +11,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from execution_output_optimizer import optimize_output
+
 
 def sha256_hex(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -107,6 +109,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--selection-query", default="", help="Path to KAG query JSON for selection-first shadow mode")
     p.add_argument("--selection-pack", default="", help="Path to retrieval pack JSON for selection-first shadow mode")
     p.add_argument("--selection-mode", default="shadow", choices=["shadow", "primary"], help="Whether selection-first is running in shadow mode or primary mode")
+    p.add_argument(
+        "--execution-operation-class",
+        default="",
+        help="Optional narrow RTK execution-output operation class (git_status, git_diff_stat, ls, find, tree, git_fetch). Raw output remains authoritative.",
+    )
     return p.parse_args()
 
 
@@ -125,6 +132,9 @@ def main() -> int:
     text = raw_bytes.decode(args.encoding, errors="replace")
     raw_json = parse_json_maybe(text)
     raw_top_level_keys = top_level_keys(raw_json)
+    execution_optimizer_result = None
+    if args.execution_operation_class:
+        execution_optimizer_result = optimize_output(args.execution_operation_class, text)
 
     enabled = os.getenv("MINICISO_HEADROOM_ENABLED", "1") != "0"
     command_used = "MINICISO_HEADROOM_ENABLED=%s %s" % (
@@ -288,6 +298,9 @@ def main() -> int:
             "elapsed_ms": elapsed_ms,
         },
         "selection_first": selection_metadata,
+        "execution_output_optimizer": (
+            execution_optimizer_result.to_dict() if execution_optimizer_result else {"enabled": False, "reason": "not_requested"}
+        ),
     }
 
     run_json.write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

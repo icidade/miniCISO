@@ -10,7 +10,9 @@ Required for the overlay to be useful at all:
 - network access during the first installation
 - the Hermes version pinned in `config/hermes-version.env`
 
-The bootstrap delegates Python, `uv`, Node.js, and runtime dependency management to the pinned official Hermes installer.
+The bootstrap delegates Python, `uv`, Node.js, and runtime dependency management to the Hermes installer obtained from the pinned fork commit. The fork is the canonical runtime source for this release; no floating branch or vendored Hermes copy is used.
+
+The runtime pin is the exact SHA in `config/hermes-version.env`. The installer is fetched from that same repository and verified by SHA-256 before use. MiniCISO remains an overlay: prompts, profiles, skills, templates, and configuration stay in this repository.
 
 ### 2. MiniCISO overlay content dependencies
 Needed to use the prompts/profiles/templates effectively:
@@ -83,6 +85,8 @@ env -u VIRTUAL_ENV uv run bigua-analyzer --help
 - RTK reduced output is never authoritative
 - RTK default mode is `shadow`
 - `MINICISO_EXECUTION_OUTPUT_OPTIMIZER=0` must preserve rollback to passthrough
+
+Phase 2 is outside the v0.7.0 scope.
 
 **RTK MVP scope:**
 - included: `git_status`, `git_diff_stat`, `ls`, `find`, `tree`, `git_fetch`

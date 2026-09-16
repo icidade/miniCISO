@@ -3,10 +3,10 @@
 ## Prerequisites
 
 - Git
-- HTTPS access to GitHub and the endpoints used by the official Hermes installer
+- HTTPS access to GitHub and the endpoints used by the pinned Hermes fork installer
 - a valid credential for at least one Hermes-supported provider/model
 
-Python, `uv`, Node.js, and the remaining runtime dependencies are managed by the official installer pinned by the project.
+Python, `uv`, Node.js, and the remaining runtime dependencies are managed by the installer from the pinned fork commit.
 
 ## Clean installation
 
@@ -30,8 +30,8 @@ Provider setup is interactive because credentials do not belong in Git. To prepa
 
 ## What is reproducible
 
-- Hermes upstream tag and commit
-- upstream installer checksums
+- Hermes fork repository and exact commit
+- fork installer checksums
 - profile names and prompts
 - workspace structure
 - terminal backend and working directory
@@ -57,13 +57,15 @@ The bootstrap creates a `.pre-miniciso` copy before replacing an existing differ
 
 ## Updating Hermes
 
-Do not use a floating branch. Update `config/hermes-version.env` with an official release, its resolved commit, and the hashes of both installers. Then run the validations and test a clean restoration.
+Do not use a floating branch. Update `config/hermes-version.env` with a known Hermes fork repository, exact commit, and the hashes of both installers. The fork preserves its upstream relationship but is the canonical source for this overlay release.
 
 ## Rollback
 
-1. check out a previous commit from this repo;
-2. run bootstrap again;
+1. choose a previously known-good Hermes SHA in `config/hermes-version.env`;
+2. run bootstrap again with that pin;
 3. restore any `SOUL.md.pre-miniciso` only if you want to stop using the overlay-managed prompt.
+
+Rollback does not use a floating branch or destructive `git reset`/`git clean` operation.
 
 ## Verification
 

@@ -2,12 +2,12 @@
 
 ## Preferred model
 
-Use **Hermes as an upstream dependency** and keep MiniCISO as a separate public, sanitized overlay repository.
+Use Hermes as a separately installed runtime dependency and keep MiniCISO as a separate public, sanitized overlay repository. This release obtains that runtime from the `icidade/hermes-agent` fork at the exact SHA recorded in `config/hermes-version.env`.
 
 That means:
 - Hermes core stays updateable with low friction.
 - MiniCISO prompts, profiles, templates, and docs remain your own product layer.
-- A fork of Hermes becomes necessary only if you must patch Hermes core behavior.
+- The fork preserves the upstream relationship while providing the runtime integration required by this release; it is not vendored into MiniCISO.
 
 ## Recommended repository structure
 
@@ -97,7 +97,9 @@ Choose fork only when you need to change:
 
 ## Promotion path
 1. Author and review content in this repo.
-2. Pin an official Hermes release and commit in `config/hermes-version.env`.
+2. Pin the known Hermes fork repository and exact commit in `config/hermes-version.env`.
 3. Restore with the platform bootstrap, which creates dedicated named profiles.
 4. Validate with the offline validator and runtime smoke test.
 5. Promote to daily use only after review of the local provider and isolation settings.
+
+Rollback uses a previously known-good runtime SHA by reinstalling that version through the bootstrap. It does not use a floating branch or destructive `reset`/`clean` operation.

@@ -1,12 +1,14 @@
 import json
+import os
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from hr_manual_wrapper import build_selection_metadata
+from hr_manual_wrapper import build_selection_metadata, main
 
 
 class BuildSelectionMetadataTests(unittest.TestCase):
@@ -74,6 +76,50 @@ class BuildSelectionMetadataTests(unittest.TestCase):
                 metadata["top_selection_reasons"],
                 ["required:permission", "signal:keyword:workflow"],
             )
+
+
+class ExecutionOutputOptimizerIntegrationTests(unittest.TestCase):
+    def test_wrapper_logs_shadow_derivative_but_preserves_authoritative_raw_output(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            input_path = tmp / "ls.txt"
+            output_path = tmp / "out.txt"
+            log_dir = tmp / "logs"
+            raw_output = "\n".join(f"file_{i}" for i in range(40)) + "\n"
+            input_path.write_text(raw_output, encoding="utf-8")
+
+            argv = [
+                "hr_manual_wrapper.py",
+                str(input_path),
+                str(output_path),
+                "--log-dir",
+                str(log_dir),
+                "--artifact-type",
+                "command-output",
+                "--execution-operation-class",
+                "ls",
+            ]
+            env = os.environ.copy()
+            env["MINICISO_HEADROOM_ENABLED"] = "0"
+            env["MINICISO_EXECUTION_OUTPUT_OPTIMIZER"] = "1"
+            env["MINICISO_EXECUTION_OUTPUT_OPTIMIZER_MODE"] = "shadow"
+
+            with patch.object(sys, "argv", argv), patch.dict(os.environ, env, clear=True):
+                rc = main()
+
+            self.assertEqual(rc, 0)
+            self.assertEqual(output_path.read_text(encoding="utf-8"), raw_output)
+
+            run_files = sorted(log_dir.glob("*.json"))
+            self.assertEqual(len(run_files), 1)
+            record = json.loads(run_files[0].read_text(encoding="utf-8"))
+            optimizer = record["execution_output_optimizer"]
+            self.assertTrue(optimizer["enabled"])
+            self.assertTrue(optimizer["optimizer_applied"])
+            self.assertEqual(optimizer["reason"], "shadow_derivative_only")
+            self.assertEqual(optimizer["authoritative_raw_output"], raw_output)
+            self.assertIn('"kind": "ls"', optimizer["reduced_output"])
+            self.assertEqual(record["compressed"]["chars"], len(raw_output))
 
 
 if __name__ == "__main__":
