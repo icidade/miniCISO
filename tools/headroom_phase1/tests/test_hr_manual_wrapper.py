@@ -85,8 +85,8 @@ class ExecutionOutputOptimizerIntegrationTests(unittest.TestCase):
             input_path = tmp / "ls.txt"
             output_path = tmp / "out.txt"
             log_dir = tmp / "logs"
-            raw_output = "\n".join(f"file_{i}" for i in range(40)) + "\n"
-            input_path.write_text(raw_output, encoding="utf-8")
+            raw_output = "\r\n".join(f"file_{i}" for i in range(40)) + "\r\n"
+            input_path.write_bytes(raw_output.encode("utf-8"))
 
             argv = [
                 "hr_manual_wrapper.py",
@@ -104,11 +104,22 @@ class ExecutionOutputOptimizerIntegrationTests(unittest.TestCase):
             env["MINICISO_EXECUTION_OUTPUT_OPTIMIZER"] = "1"
             env["MINICISO_EXECUTION_OUTPUT_OPTIMIZER_MODE"] = "shadow"
 
-            with patch.object(sys, "argv", argv), patch.dict(os.environ, env, clear=True):
+            original_write_text = Path.write_text
+
+            def windows_text_write_text(path, data, *args, **kwargs):
+                if path == output_path:
+                    data = data.replace("\n", "\r\n")
+                return original_write_text(path, data, *args, **kwargs)
+
+            with (
+                patch.object(sys, "argv", argv),
+                patch.dict(os.environ, env, clear=True),
+                patch.object(Path, "write_text", new=windows_text_write_text),
+            ):
                 rc = main()
 
             self.assertEqual(rc, 0)
-            self.assertEqual(output_path.read_text(encoding="utf-8"), raw_output)
+            self.assertEqual(output_path.read_bytes(), raw_output.encode("utf-8"))
 
             run_files = sorted(log_dir.glob("*.json"))
             self.assertEqual(len(run_files), 1)

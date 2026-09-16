@@ -171,7 +171,7 @@ def main() -> int:
         mode = "kill-switch-passthrough"
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(output_text, encoding=args.encoding)
+    output_path.write_bytes(output_text.encode(args.encoding))
     output_bytes = output_path.read_bytes()
     output_json = parse_json_maybe(output_text)
     output_top_level_keys = top_level_keys(output_json)
@@ -217,7 +217,7 @@ def main() -> int:
         quality_flags.extend(["sbom_component_count_reduced", "raw_required_for_sbom_authority"])
         guard_actions.append("sbom_guard_reverted_to_raw")
         output_text = text
-        output_path.write_text(output_text, encoding=args.encoding)
+        output_path.write_bytes(output_text.encode(args.encoding))
         output_bytes = output_path.read_bytes()
         output_json = raw_json
         output_top_level_keys = raw_top_level_keys
