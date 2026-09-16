@@ -8,7 +8,9 @@ model:
 toolsets:
 - hermes-cli
 agent:
-  max_turns: 90
+  # Legacy ceiling remains as a secondary failsafe. The governance controller
+  # below must stop or pause execution earlier for bounded and engagement work.
+  max_turns: 24
   tool_use_enforcement: auto
   task_completion_guidance: true
   environment_probe: true
@@ -36,10 +38,137 @@ browser:
   dialog_timeout_s: 300
 compression:
   enabled: true
+  # Existing compression still helps, but governance should compact or
+  # externalize before the old late-compression failure mode recurs.
   threshold: 0.5
   target_ratio: 0.2
   protect_last_n: 20
   protect_first_n: 3
+cost_context_governance:
+  # v0.7.0 installed default. Use observe for diagnostics/migration, disabled
+  # only by explicit operator choice.
+  mode: enforce
+  workspace_dir: engagements
+  default_profile: conversational
+  force_for_profiles:
+    - chief-of-staff
+  engagement_keywords:
+    - miniciso
+    - security
+    - assessment
+    - review
+    - threat model
+    - appsec
+    - bug bounty
+  threshold:
+    informational_ratio: 0.5
+    warning_ratio: 0.7
+    approval_ratio: 0.85
+    hard_stop_ratio: 1.0
+  progress:
+    equivalent_tool_calls: 3
+    same_error_repeats: 3
+    no_progress_iterations: 3
+    timeout_checkpoint_seconds: 45
+  role_toolsets:
+    chief:
+      - delegation
+      - todo
+      - session_search
+      - file
+      - search
+      - skills
+      - browser
+      - web
+    sme:
+      - file
+      - search
+      - terminal
+      - web
+      - browser
+    qa:
+      - file
+      - search
+      - terminal
+      - web
+      - browser
+      - session_search
+  profiles:
+    # Conversational: minimal overhead, no delegation, small schema/call budget.
+    conversational:
+      total_model_calls: 3
+      calls_per_agent: 3
+      calls_per_delegated_task: 0
+      input_tokens: 6000
+      output_tokens: 3000
+      total_tokens: 9000
+      context_tokens_per_request: 5000
+      wall_clock_seconds: 90
+      tool_invocations: 6
+      retries: 1
+      delegation_count: 0
+      iterations_without_progress: 2
+      qa_reserve_ratio: 0.0
+    # Bounded: short implementation/review/investigation with one narrow child.
+    bounded:
+      total_model_calls: 6
+      calls_per_agent: 5
+      calls_per_delegated_task: 3
+      input_tokens: 18000
+      output_tokens: 8000
+      total_tokens: 26000
+      context_tokens_per_request: 9000
+      wall_clock_seconds: 180
+      tool_invocations: 15
+      retries: 3
+      delegation_count: 1
+      iterations_without_progress: 3
+      qa_reserve_ratio: 0.1
+    # Standard engagement: typical MiniCISO assessment with SMEs plus protected QA.
+    standard_engagement:
+      total_model_calls: 8
+      calls_per_agent: 6
+      calls_per_delegated_task: 5
+      input_tokens: 24000
+      output_tokens: 12000
+      total_tokens: 36000
+      context_tokens_per_request: 12000
+      wall_clock_seconds: 300
+      tool_invocations: 25
+      retries: 4
+      delegation_count: 3
+      iterations_without_progress: 4
+      qa_reserve_ratio: 0.2
+    # Deep engagement: allows more lanes, but still far below the uncontrolled incident pattern.
+    deep_engagement:
+      total_model_calls: 16
+      calls_per_agent: 10
+      calls_per_delegated_task: 8
+      input_tokens: 60000
+      output_tokens: 24000
+      total_tokens: 84000
+      context_tokens_per_request: 18000
+      wall_clock_seconds: 600
+      tool_invocations: 50
+      retries: 6
+      delegation_count: 4
+      iterations_without_progress: 5
+      qa_reserve_ratio: 0.25
+    # Custom stays public and provider-independent; operators can tune as needed.
+    custom:
+      total_model_calls: 10
+      calls_per_agent: 7
+      calls_per_delegated_task: 4
+      input_tokens: 30000
+      output_tokens: 12000
+      total_tokens: 42000
+      context_tokens_per_request: 12000
+      wall_clock_seconds: 300
+      tool_invocations: 20
+      retries: 4
+      delegation_count: 2
+      iterations_without_progress: 3
+      qa_reserve_ratio: 0.15
 auxiliary:
   vision:
     provider: auto

@@ -17,6 +17,23 @@ MiniCISO builds on that runtime as an agentic security staff, distributed as a r
 
 > This repository is **not a Hermes fork**. MiniCISO is a public overlay installed on top of a Hermes runtime pinned by version and commit in [`config/hermes-version.env`](config/hermes-version.env).
 
+## v0.7.0 — Cost & Context Governance
+
+MiniCISO v0.7.0 adds a cost and context governance layer with:
+- `disabled`, `observe`, and `enforce` modes;
+- budgets for each agent and delegated task, with a protected QA reserve;
+- a `reserve → persisted dispatch → reconcile/finalize` lifecycle and an accounting latch that fails closed when accounting cannot be trusted;
+- limited compaction per pressure episode, with re-arming after recovery;
+- identity tracking from `profile → engagement → task → logical call → attempt → request`;
+- human authorization before additional LLM calls. Telegram approval callbacks are opaque, single-use, and do not call the LLM to process approval or denial;
+- artifact minimization and profile-scoped authorization.
+
+Headroom Phase 1's output optimizer remains in shadow mode. Headroom Phase 2 is not part of v0.7.0. See the [governance design](docs/cost-context-governance-design.md) and the [governance skill](skills/cost-context-governance/SKILL.md).
+
+### Reproducible runtime
+
+MiniCISO v0.7.0 uses the [`icidade/hermes-agent`](https://github.com/icidade/hermes-agent) fork at commit `489c6f2103ccca0ac1fc4f6249c71924ec8f024c`. This SHA, not a floating branch, is the authority for the runtime. MiniCISO remains an overlay: there is no local patchset and no vendored Hermes code.
+
 ## Why MiniCISO
 
 MiniCISO packages a reusable security operating model around Hermes:
@@ -46,6 +63,22 @@ cd miniCISO
 ```
 
 The bootstrap restores the pinned Hermes runtime, creates the MiniCISO profile set, installs the overlay prompts, bundled `chief-of-staff` skills, and templates, prepares the shared workspace, and runs structural checks.
+
+To update an existing installation to v0.7.0, use the platform command in [`INSTALL.md`](INSTALL.md) without `--skip-hermes-install` / `-SkipHermesInstall`, so the pinned runtime is installed and verified. The bootstrap checks provenance and fails closed when the runtime diverges. See [`INSTALL.md`](INSTALL.md) for provider-setup options and rollback. After deployment, restart existing sessions and gateways; a new session is recommended after the restart.
+
+### Windows (PowerShell)
+
+```powershell
+git pull --ff-only
+.\scripts\bootstrap.ps1 -SkipProviderSetup
+```
+
+### Linux, macOS, or WSL2
+
+```bash
+git pull --ff-only
+./scripts/bootstrap.sh --skip-provider-setup
+```
 
 Credentials requested by `hermes setup` stay in the user's Hermes environment. They are never copied into this repository.
 
@@ -144,6 +177,7 @@ MiniCISO can maintain a public, sanitized copy of selected runtime-safe artifact
 
 ### Operations
 - [Dependencies and configuration](docs/dependencies-and-configuration.md)
+- [Cost & Context Governance design](docs/cost-context-governance-design.md)
 - [Safe self-update capability](docs/self-update-capability.md)
 - [GitHub PR access from the VPS](docs/github-pr-access.md)
 

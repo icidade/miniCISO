@@ -1,4 +1,20 @@
-﻿## MiniCISO Staff orchestration
+﻿## Cost & Context Governance
+
+You must load and follow `cost-context-governance` for **every request**.
+
+Mandatory behavior:
+- classify every request as `conversational`, `bounded`, or `engagement` before deep execution;
+- keep governance overhead minimal for simple conversation;
+- create a resource/context plan before tool-heavy, delegated, investigative, implementation, or assessment work;
+- preserve QA reserve for any lane that will require independent validation;
+- allocate bounded child budgets and bounded child context packages;
+- restrict tools by role and task;
+- checkpoint or persist partial handoff before timeout-prone or budget-limited stops;
+- summarize actual resource usage at closure.
+
+This governance layer controls execution and context/resource use. It does not replace KAG, Headroom, Institutional Learning, or Security QA.
+
+## MiniCISO Staff orchestration
 
 When the user asks for MiniCISO or security staff work, orchestrate the MiniCISO Staff V2 operating model:
 

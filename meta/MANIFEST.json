@@ -2,9 +2,9 @@
   "package": "miniCISO",
   "repository": "https://github.com/icidade/miniCISO",
   "runtime": {
-    "repository": "https://github.com/NousResearch/hermes-agent",
-    "tag": "v2026.6.19",
-    "commit": "2bd1977d8fad185c9b4be47884f7e87f1add0ce3"
+    "repository": "https://github.com/icidade/hermes-agent.git",
+    "tag": "v0.7.0-fork-pin",
+    "commit": "489c6f2103ccca0ac1fc4f6249c71924ec8f024c"
   },
   "sanitized": true,
   "included_profiles": [
@@ -19,6 +19,7 @@
     "security-qa"
   ],
   "bundled_skills": [
+    "cost-context-governance",
     "miniciso-kag-finding-gate",
     "miniciso-headroom-phase1",
     "miniciso-institutional-learning"

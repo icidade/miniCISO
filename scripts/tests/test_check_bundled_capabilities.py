@@ -7,6 +7,7 @@ from scripts.check_bundled_capabilities import validate_repo
 
 
 REQUIRED_SKILLS = [
+    "cost-context-governance",
     "miniciso-kag-finding-gate",
     "miniciso-headroom-phase1",
     "miniciso-institutional-learning",
@@ -17,7 +18,10 @@ class BundledCapabilitiesValidationTests(unittest.TestCase):
     def make_repo(self) -> Path:
         root = Path(tempfile.mkdtemp(prefix="miniciso-capabilities-"))
         for skill in REQUIRED_SKILLS:
-            skill_dir = root / "skills" / "security" / skill
+            if skill.startswith("miniciso-"):
+                skill_dir = root / "skills" / "security" / skill
+            else:
+                skill_dir = root / "skills" / skill
             skill_dir.mkdir(parents=True, exist_ok=True)
             (skill_dir / "SKILL.md").write_text(
                 f"---\nname: {skill}\ndescription: test\n---\n\n# {skill}\n",
@@ -29,6 +33,7 @@ class BundledCapabilitiesValidationTests(unittest.TestCase):
             "\n".join(
                 [
                     "# SOUL",
+                    "cost-context-governance",
                     "miniciso-kag-finding-gate",
                     "miniciso-headroom-phase1",
                     "miniciso-institutional-learning",
@@ -55,10 +60,7 @@ class BundledCapabilitiesValidationTests(unittest.TestCase):
 
         meta_dir = root / "meta"
         meta_dir.mkdir(parents=True, exist_ok=True)
-        (meta_dir / "MANIFEST.json").write_text(
-            json.dumps({"bundled_skills": REQUIRED_SKILLS}, indent=2),
-            encoding="utf-8",
-        )
+        (meta_dir / "MANIFEST.json").write_text(json.dumps({"bundled_skills": REQUIRED_SKILLS}, indent=2), encoding="utf-8")
         return root
 
     def test_validate_repo_accepts_expected_layout(self):

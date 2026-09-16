@@ -37,8 +37,16 @@ SUSPICIOUS_PATTERNS = [
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Export public/safe MiniCISO state from the VPS into this repo.")
     parser.add_argument("--repo-root", default=str(Path(__file__).resolve().parents[1]))
-    parser.add_argument("--source-workspace", default="/home/vpsadmin/miniciso-security")
-    parser.add_argument("--source-profile", default="/home/vpsadmin/.hermes/profiles/chief-of-staff")
+    parser.add_argument(
+        "--source-workspace",
+        default=str(Path.home() / "miniciso-security"),
+        help="Path to the local MiniCISO workspace to export from.",
+    )
+    parser.add_argument(
+        "--source-profile",
+        default=str(Path.home() / ".hermes/profiles/chief-of-staff"),
+        help="Path to the local Hermes profile root to export from.",
+    )
     parser.add_argument("--apply", action="store_true", help="Actually write files. Default is dry-run.")
     return parser.parse_args()
 

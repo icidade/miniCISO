@@ -10,7 +10,9 @@ Required for the overlay to be useful at all:
 - network access during the first installation
 - the Hermes version pinned in `config/hermes-version.env`
 
-The bootstrap delegates Python, `uv`, Node.js, and runtime dependency management to the pinned official Hermes installer.
+The bootstrap delegates Python, `uv`, Node.js, and runtime dependency management to the Hermes installer obtained from the pinned fork commit. The fork is the canonical runtime source for this release; no floating branch or vendored Hermes copy is used.
+
+The runtime pin is the exact SHA in `config/hermes-version.env`. The installer is fetched from that same repository and verified by SHA-256 before use. MiniCISO remains an overlay: prompts, profiles, skills, templates, and configuration stay in this repository.
 
 ### 2. MiniCISO overlay content dependencies
 Needed to use the prompts/profiles/templates effectively:
@@ -69,6 +71,7 @@ env -u VIRTUAL_ENV uv run bigua-analyzer --help
 - KAG query builder
 - deterministic retrieval selector
 - manual wrapper with shadow-mode logging
+- RTK execution output optimizer experiment for narrow operational command classes
 
 **Repo-side location:**
 - `tools/headroom_phase1/`
@@ -79,6 +82,15 @@ env -u VIRTUAL_ENV uv run bigua-analyzer --help
 - no raw evidence artifacts in the repo
 - absence in retrieval pack must remain `not_verified_in_raw`
 - keep selection-first logs and code separable from confidential engagement data
+- RTK reduced output is never authoritative
+- RTK default mode is `shadow`
+- `MINICISO_EXECUTION_OUTPUT_OPTIMIZER=0` must preserve rollback to passthrough
+
+Phase 2 is outside the v0.7.0 scope.
+
+**RTK MVP scope:**
+- included: `git_status`, `git_diff_stat`, `ls`, `find`, `tree`, `git_fetch`
+- excluded: `read_file`, `search_files`, `grep`, reports/findings, SARIF, SBOM, PoCs, HTTP traces, SME/Security QA responses
 
 ### ProjectDiscovery Cloud / passive discovery layer
 **Purpose:** passive asset discovery and cloud-assisted recon support when the assessment model includes authorized external inventory work.
