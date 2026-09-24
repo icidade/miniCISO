@@ -32,9 +32,9 @@ Headroom Phase 1's output optimizer remains in shadow mode. Headroom Phase 2 is 
 
 ### Reproducible runtime
 
-MiniCISO v0.7.2 uses the [`icidade/hermes-agent`](https://github.com/icidade/hermes-agent) fork at commit `d8e98345cabfc88129e5c12a1f95428a79723332`. This SHA, not a floating branch, is the authority for the runtime. MiniCISO remains an overlay: there is no local patchset and no vendored Hermes code.
+MiniCISO v0.7.3 uses the [`icidade/hermes-agent`](https://github.com/icidade/hermes-agent) fork at commit `d8e98345cabfc88129e5c12a1f95428a79723332`. This SHA, not a floating branch, is the authority for the runtime. MiniCISO remains an overlay: there is no local patchset and no vendored Hermes code.
 
-The v0.7.2 patch minimizes tool schemas for conversational turns, restores the full governed surface for engagement work, and preserves fail-closed behavior when schema filtering fails.
+The v0.7.3 patch calibrates the conversational budget envelope so lightweight requests can proceed without an unnecessary approval hard stop.
 
 ## Why MiniCISO
 

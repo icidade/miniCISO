@@ -99,10 +99,10 @@ cost_context_governance:
       total_model_calls: 3
       calls_per_agent: 3
       calls_per_delegated_task: 0
-      input_tokens: 6000
+      input_tokens: 10000
       output_tokens: 3000
-      total_tokens: 9000
-      context_tokens_per_request: 5000
+      total_tokens: 13000
+      context_tokens_per_request: 10000
       wall_clock_seconds: 90
       tool_invocations: 6
       retries: 1
