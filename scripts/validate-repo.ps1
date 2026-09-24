@@ -50,7 +50,7 @@ if (Test-Path -LiteralPath $versionPath) {
     if ($versionText -notmatch '(?m)^HERMES_REPOSITORY=https://github\.com/icidade/hermes-agent\.git\r?$') {
         Add-ValidationError 'HERMES_REPOSITORY must point to the pinned fork.'
     }
-    if ($versionText -notmatch '(?m)^HERMES_COMMIT=a921e389f130b3a46c9f1b7363dae6ab1c87f6c5\r?$') {
+    if ($versionText -notmatch '(?m)^HERMES_COMMIT=d8e98345cabfc88129e5c12a1f95428a79723332\r?$') {
         Add-ValidationError 'HERMES_COMMIT does not match the release pin.'
     }
     if ($versionText -notmatch '(?m)^HERMES_TAG=v\d+\.\d+\.\d+(-[A-Za-z0-9.-]+)?\r?$') {

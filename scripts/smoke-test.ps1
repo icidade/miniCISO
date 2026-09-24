@@ -10,7 +10,7 @@ $version = @{}
 foreach ($line in Get-Content (Join-Path $repoRoot 'config\hermes-version.env')) { if ($line -match '^([A-Z0-9_]+)=(.+)$') { $version[$matches[1]] = $matches[2] } }
 function Canonical-Repo([string]$Value) { $v = $Value -replace '\.git$', ''; if ($v -match '^https://github\.com/([^/]+)/([^/]+)$') { return "$($matches[1])/$($matches[2])" }; if ($v -match '^git@github\.com:([^/]+)/([^/]+)$') { return "$($matches[1])/$($matches[2])" }; throw 'Unsupported Hermes repository URL.' }
 if ($version.HERMES_REPOSITORY -ne 'https://github.com/icidade/hermes-agent.git') { throw 'Unexpected Hermes repository.' }
-if ($version.HERMES_COMMIT -ne 'a921e389f130b3a46c9f1b7363dae6ab1c87f6c5') { throw 'Unexpected Hermes commit.' }
+if ($version.HERMES_COMMIT -ne 'd8e98345cabfc88129e5c12a1f95428a79723332') { throw 'Unexpected Hermes commit.' }
 $runtime = Join-Path $HermesHome 'hermes-agent'
 $head = (& git -C $runtime rev-parse HEAD).Trim()
 if ($head -ne $version.HERMES_COMMIT) { throw 'Hermes HEAD mismatch.' }
