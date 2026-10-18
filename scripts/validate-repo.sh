@@ -43,7 +43,7 @@ done
 
 version_file="$REPO_ROOT/config/hermes-version.env"
 grep -Fxq 'HERMES_REPOSITORY=https://github.com/icidade/hermes-agent.git' "$version_file" || fail 'invalid HERMES_REPOSITORY'
-grep -Fxq 'HERMES_COMMIT=d8e98345cabfc88129e5c12a1f95428a79723332' "$version_file" || fail 'unexpected HERMES_COMMIT'
+grep -Fxq 'HERMES_COMMIT=07b34b8eebcb414cf4c771be87a7f55a6ad21606' "$version_file" || fail 'unexpected HERMES_COMMIT'
 grep -Eq '^HERMES_TAG=v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$' "$version_file" || fail 'invalid HERMES_TAG'
 grep -Eq '^HERMES_COMMIT=[0-9a-f]{40}$' "$version_file" || fail 'invalid HERMES_COMMIT'
 [[ $(grep -Ec '^HERMES_INSTALL_(PS1|SH)_SHA256=[A-F0-9]{64}$' "$version_file") -eq 2 ]] || fail 'invalid installer checksums'

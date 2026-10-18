@@ -3,8 +3,8 @@
   "repository": "https://github.com/icidade/miniCISO",
   "runtime": {
     "repository": "https://github.com/icidade/hermes-agent.git",
-    "tag": "v0.7.3-fork-pin",
-    "commit": "d8e98345cabfc88129e5c12a1f95428a79723332"
+    "tag": "v0.7.4-fork-pin",
+    "commit": "07b34b8eebcb414cf4c771be87a7f55a6ad21606"
   },
   "sanitized": true,
   "included_profiles": [
