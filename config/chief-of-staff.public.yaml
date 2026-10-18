@@ -73,6 +73,7 @@ cost_context_governance:
   role_toolsets:
     chief:
       - delegation
+      - terminal
       - todo
       - session_search
       - file
@@ -94,20 +95,20 @@ cost_context_governance:
       - browser
       - session_search
   profiles:
-    # Conversational: minimal overhead, no delegation, small schema/call budget.
+    # Conversational: long-lived Chief chat with a broad context budget; delegation stays disabled.
     conversational:
-      total_model_calls: 3
-      calls_per_agent: 3
+      total_model_calls: 64
+      calls_per_agent: 64
       calls_per_delegated_task: 0
-      input_tokens: 10000
-      output_tokens: 3000
-      total_tokens: 13000
-      context_tokens_per_request: 10000
+      input_tokens: 272000
+      output_tokens: 272000
+      total_tokens: 272000
+      context_tokens_per_request: 80000
       wall_clock_seconds: 90
-      tool_invocations: 6
+      tool_invocations: 128
       retries: 1
       delegation_count: 0
-      iterations_without_progress: 2
+      iterations_without_progress: 10
       qa_reserve_ratio: 0.0
     # Bounded: short implementation/review/investigation with one narrow child.
     bounded:

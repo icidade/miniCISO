@@ -6,7 +6,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_REPOSITORY = "https://github.com/icidade/hermes-agent.git"
-EXPECTED_COMMIT = "d8e98345cabfc88129e5c12a1f95428a79723332"
+EXPECTED_COMMIT = "07b34b8eebcb414cf4c771be87a7f55a6ad21606"
 
 
 def parse_env_file(path: Path) -> dict[str, str]:
@@ -114,11 +114,20 @@ class RuntimePinBootstrapConfigTests(unittest.TestCase):
             self.assertEqual(other.read_text(encoding="utf-8"), "existing: other\n")
 
 
-    def test_profile_checks_are_exact_not_substring(self):
-        for path in (REPO_ROOT / "scripts/smoke-test.sh", REPO_ROOT / "scripts/smoke-test.ps1"):
-            text = path.read_text(encoding="utf-8-sig")
-            self.assertIn("profile list", text)
-            self.assertTrue("exact" in text.lower() or "-eq" in text or "Compare-Object" in text)
+    def test_profile_checks_use_exact_directory_membership_and_allow_extras(self):
+        shell = (REPO_ROOT / "scripts/smoke-test.sh").read_text(encoding="utf-8-sig")
+        powershell = (REPO_ROOT / "scripts/smoke-test.ps1").read_text(encoding="utf-8-sig")
+
+        self.assertIn('find "$HERMES_HOME/profiles"', shell)
+        self.assertIn("comm -23", shell)
+        self.assertIn("MiniCISO profiles missing from Hermes", shell)
+
+        self.assertIn("Get-ChildItem (Join-Path $HermesHome 'profiles') -Directory", powershell)
+        self.assertIn("$installed -notcontains $_", powershell)
+        self.assertIn("MiniCISO profiles missing from Hermes", powershell)
+
+        for script in (shell, powershell):
+            self.assertNotIn("Hermes profiles do not match exactly", script)
 
     def test_skip_install_rejects_wrong_head_before_overlay_writes(self):
         import tempfile
