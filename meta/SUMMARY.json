@@ -2,7 +2,7 @@
   "package": "miniCISO",
   "repo_ready": true,
   "clean_restore_supported": true,
-  "runtime_pin": "ef4a0006032cbcacbc4376b76943defb1013c268",
+  "runtime_pin": "07b34b8eebcb414cf4c771be87a7f55a6ad21606",
   "sanitized": true,
   "files": [
     "INSTALL.md",
