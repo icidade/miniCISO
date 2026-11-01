@@ -127,18 +127,18 @@ cost_context_governance:
       qa_reserve_ratio: 0.1
     # Standard engagement: typical MiniCISO assessment with SMEs plus protected QA.
     standard_engagement:
-      total_model_calls: 8
-      calls_per_agent: 6
-      calls_per_delegated_task: 5
-      input_tokens: 24000
-      output_tokens: 12000
-      total_tokens: 36000
-      context_tokens_per_request: 12000
+      total_model_calls: 64
+      calls_per_agent: 64
+      calls_per_delegated_task: 8
+      input_tokens: 272000
+      output_tokens: 272000
+      total_tokens: 272000
+      context_tokens_per_request: 80000
       wall_clock_seconds: 300
-      tool_invocations: 25
+      tool_invocations: 128
       retries: 4
-      delegation_count: 3
-      iterations_without_progress: 4
+      delegation_count: 6
+      iterations_without_progress: 10
       qa_reserve_ratio: 0.2
     # Deep engagement: allows more lanes, but still far below the uncontrolled incident pattern.
     deep_engagement:
@@ -203,3 +203,14 @@ auxiliary:
     provider: auto
     model: ''
     timeout: 120
+
+delegation:
+  profile_routes:
+    security-appsec-assessment: sme
+    security-architecture: sme
+    security-threat-modeling: sme
+    security-code-review: sme
+    security-offensive-security: sme
+    security-compliance-mapper: sme
+    security-recon-attack-surface-strategist: sme
+    security-qa: qa
