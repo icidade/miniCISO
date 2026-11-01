@@ -6,7 +6,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_REPOSITORY = "https://github.com/icidade/hermes-agent.git"
-EXPECTED_COMMIT = "07b34b8eebcb414cf4c771be87a7f55a6ad21606"
+EXPECTED_COMMIT = "ef4a0006032cbcacbc4376b76943defb1013c268"
 
 
 def parse_env_file(path: Path) -> dict[str, str]:
