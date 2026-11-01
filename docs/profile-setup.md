@@ -43,6 +43,21 @@ Recommended toolsets for security SMEs that produce artifacts:
 terminal, file, web, skills, memory, session_search, delegation, todo
 ```
 
+## Governance role routing
+
+The Chief-of-Staff maps delegated profiles to protected governance roles with `delegation.profile_routes`:
+
+```yaml
+delegation:
+  profile_routes:
+    security-appsec-assessment: sme
+    security-architecture: sme
+    security-threat-modeling: sme
+    security-qa: qa
+```
+
+Specialist profiles use the `sme` governance role, while `security-qa` uses the protected `qa` role and its reserved capacity. The runtime selects the role from this configuration, never from model-generated text. Child agents inherit the persistent engagement identity, bounded budget, and scoped toolset. The expected handoff chain is specialist -> `security-qa` -> final result.
+
 ## Bundled chief-of-staff skills
 
 MiniCISO also ships reusable `chief-of-staff` skills that bootstrap installs into the profile-local Hermes skills tree:

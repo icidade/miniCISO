@@ -90,6 +90,26 @@ Implemented now for immediate VPS effect:
 - role/toolset filtering via runtime allowlist intersection;
 - local JSONL telemetry and engagement summaries.
 
+## Textual budget authorization
+
+When execution reaches an approval threshold, the gateway persists the proposed budget envelope, pauses before the next LLM call, and provides an opaque authorization ID. The authenticated user responds with one of these plain-text commands:
+
+Approval:
+
+```text
+!budget approve auth-<opaque-id>
+```
+
+Denial:
+
+```text
+!budget deny auth-<opaque-id>
+```
+
+The gateway intercepts and validates the command before the next LLM call; the LLM does not interpret either approval or denial. Authorization is bound to the authenticated principal, engagement, task, and chat, and approval applies only to the persisted proposed envelope. A user cannot replace that envelope with an arbitrary budget.
+
+Every authorization expires and is single-use. Replayed, malformed, expired, or out-of-scope commands are rejected. Denial leaves execution paused or stopped. This flow operates entirely through plain text and does not depend on Telegram-specific buttons.
+
 ## Compatibility risks
 - The release depends on the pinned fork runtime containing the governance implementation; bootstrap verifies repository, HEAD, executable, and Python module provenance before installing the overlay.
 - Tool filtering must not break existing sessions that intentionally grant broader toolsets; fallback is intersection-only when governance is active.
