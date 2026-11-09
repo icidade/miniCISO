@@ -2,7 +2,7 @@
   "package": "miniCISO",
   "repo_ready": true,
   "clean_restore_supported": true,
-  "runtime_pin": "ef4a0006032cbcacbc4376b76943defb1013c268",
+  "runtime_pin": "30ec124729cc513809f3b2deee875c4175aa0dc1",
   "sanitized": true,
   "files": [
     "INSTALL.md",
@@ -14,6 +14,7 @@
     "config/hermes-version.env",
     "config/tooling-dependencies.example.yaml",
     "docs/dependencies-and-configuration.md",
+    "docs/governance-recovery-and-operations.md",
     "docs/github-pr-access.md",
     "docs/headroom-kag-selective-retrieval.md",
     "docs/kag-finding-validation.md",

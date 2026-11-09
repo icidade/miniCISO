@@ -20,21 +20,21 @@ MiniCISO builds on that runtime as an agentic security staff, distributed as a r
 ## v0.7.0 — Cost & Context Governance
 
 MiniCISO v0.7.0 adds a cost and context governance layer with:
-- `disabled`, `observe`, and `enforce` modes;
+- explicit `disabled`, `log`, and `block` modes (`observe`/`enforce` remain compatibility aliases);
 - budgets for each agent and delegated task, with a protected QA reserve;
 - a `reserve → persisted dispatch → reconcile/finalize` lifecycle and an accounting latch that fails closed when accounting cannot be trusted;
 - limited compaction per pressure episode, with re-arming after recovery;
 - identity tracking from `profile → engagement → task → logical call → attempt → request`;
-- human authorization before additional LLM calls. Telegram approval callbacks are opaque, single-use, and do not call the LLM to process approval or denial;
+- human authorization before additional LLM calls. Approval callbacks are opaque, idempotent, and do not call the LLM to process approval or denial;
 - artifact minimization and profile-scoped authorization.
 
 Headroom Phase 1's output optimizer remains in shadow mode. Headroom Phase 2 is not part of v0.7.0. See the [governance design](docs/cost-context-governance-design.md) and the [governance skill](skills/cost-context-governance/SKILL.md).
 
 ### Reproducible runtime
 
-MiniCISO v0.7.5 uses the [`icidade/hermes-agent`](https://github.com/icidade/hermes-agent) fork tag `v0.7.5-fork-pin` at commit `ef4a0006032cbcacbc4376b76943defb1013c268`. This SHA, not a floating branch, is the authority for the runtime. MiniCISO remains an overlay: there is no local patchset and no vendored Hermes code.
+MiniCISO v0.7.6 uses the [`icidade/hermes-agent`](https://github.com/icidade/hermes-agent) fork tag `v0.7.6-fork-pin` at commit `30ec124729cc513809f3b2deee875c4175aa0dc1`. This SHA, not a floating branch, is the authority for the runtime. MiniCISO remains an overlay: there is no local patchset and no vendored Hermes code.
 
-The v0.7.5 release adds explicit profile-based routing for delegated security SMEs and the protected `security-qa` role, plain-text one-time budget authorization, and persistent session-to-engagement identity. Delegated specialists inherit the engagement's bounded budget and scoped toolset, then pass their result through QA before final synthesis. When a persisted budget envelope requires authorization, the gateway supplies an opaque ID for `!budget approve auth-<opaque-id>` or `!budget deny auth-<opaque-id>`; the command is validated and intercepted before another LLM call. See the [profile setup contract](docs/profile-setup.md) and [Cost & Context Governance design](docs/cost-context-governance-design.md) for the detailed routing and authorization rules.
+The v0.7.6 runtime makes approval/resume durable across reconstruction, adds bounded resume headroom, idempotent callbacks, an auditable authorization state machine, and authenticated budget-independent `!governance status|mode log|block` commands. The public rollout default is `log`; operators can promote to `block` after validation. See the [governance recovery runbook](docs/governance-recovery-and-operations.md), [profile setup contract](docs/profile-setup.md), and [Cost & Context Governance design](docs/cost-context-governance-design.md).
 
 ## Why MiniCISO
 
@@ -66,7 +66,7 @@ cd miniCISO
 
 The bootstrap restores the pinned Hermes runtime, creates the MiniCISO profile set, installs the overlay prompts, bundled `chief-of-staff` skills, and templates, prepares the shared workspace, and runs structural checks.
 
-To update an existing installation to v0.7.5, use the platform command in [`INSTALL.md`](INSTALL.md) without `--skip-hermes-install` / `-SkipHermesInstall`, so the pinned runtime is installed and verified. The bootstrap checks provenance and fails closed when the runtime diverges. See [`INSTALL.md`](INSTALL.md) for provider-setup options and rollback. After deployment, restart existing sessions and gateways; a new session is recommended after the restart.
+To update an existing installation to v0.7.6, use the platform command in [`INSTALL.md`](INSTALL.md) without `--skip-hermes-install` / `-SkipHermesInstall`, so the pinned runtime is installed and verified. The bootstrap checks provenance and fails closed when the runtime diverges. See [`INSTALL.md`](INSTALL.md) for provider-setup options and rollback. After deployment, restart existing sessions and gateways; a new session is recommended after the restart.
 
 ### Windows (PowerShell)
 

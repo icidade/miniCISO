@@ -13,7 +13,7 @@ expected_commit="$(awk -F= '$1=="HERMES_COMMIT" {print $2}' "$REPO_ROOT/config/h
 canonical_repo() { local value="${1%.git}"; [[ "$value" =~ ^https://github\.com/([^/]+)/([^/]+)$ ]] && printf '%s/%s' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" || [[ "$value" =~ ^git@github\.com:([^/]+)/([^/]+)$ ]] && printf '%s/%s' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" || return 1; }
 runtime="$HERMES_HOME/hermes-agent"
 [[ "$expected_repository" == 'https://github.com/icidade/hermes-agent.git' ]] || { echo 'Unexpected Hermes repository.' >&2; exit 1; }
-[[ "$expected_commit" == 'ef4a0006032cbcacbc4376b76943defb1013c268' ]] || { echo 'Unexpected Hermes commit.' >&2; exit 1; }
+[[ "$expected_commit" == '30ec124729cc513809f3b2deee875c4175aa0dc1' ]] || { echo 'Unexpected Hermes commit.' >&2; exit 1; }
 [[ -d "$runtime/.git" ]] || { echo 'Hermes checkout missing.' >&2; exit 1; }
 [[ "$(git -C "$runtime" rev-parse HEAD)" == "$expected_commit" ]] || { echo 'Hermes HEAD mismatch.' >&2; exit 1; }
 [[ "$(canonical_repo "$(git -C "$runtime" config --get remote.origin.url)")" == "$(canonical_repo "$expected_repository")" ]] || { echo 'Hermes origin mismatch.' >&2; exit 1; }
@@ -45,7 +45,7 @@ done
 chief="$HERMES_HOME/profiles/chief-of-staff"
 [[ -f "$chief/skills/cost-context-governance/SKILL.md" ]] || { echo 'Governance skill missing.' >&2; exit 1; }
 grep -Fq 'cost-context-governance' "$chief/SOUL.md" || { echo 'Chief SOUL missing governance reference.' >&2; exit 1; }
-grep -Fq 'mode: enforce' "$chief/config.yaml" || { echo 'Chief governance mode is not enforce.' >&2; exit 1; }
+grep -Fq 'mode: log' "$chief/config.yaml" || { echo 'Chief governance mode is not log.' >&2; exit 1; }
 if [[ "$ONLINE" == true ]]; then
   for profile in "${expected_profiles[@]}"; do "$hermes" -p "$profile" chat -Q -q 'Answer in one line starting with OK.'; done
 fi

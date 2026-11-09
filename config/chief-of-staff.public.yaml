@@ -45,9 +45,14 @@ compression:
   protect_last_n: 20
   protect_first_n: 3
 cost_context_governance:
-  # v0.7.0 installed default. Use observe for diagnostics/migration, disabled
-  # only by explicit operator choice.
-  mode: enforce
+  # Log-only is the safe rollout default. Promote to block after operational
+  # validation; disabled remains an explicit local-operator choice only.
+  mode: log
+  approval_resume_headroom_tokens: 1024
+  approval_resume_headroom_ratio: 0.05
+  administrators:
+    telegram: []
+    slack: []
   workspace_dir: engagements
   default_profile: conversational
   force_for_profiles:
