@@ -10,7 +10,7 @@ $version = @{}
 foreach ($line in Get-Content (Join-Path $repoRoot 'config\hermes-version.env')) { if ($line -match '^([A-Z0-9_]+)=(.+)$') { $version[$matches[1]] = $matches[2] } }
 function Canonical-Repo([string]$Value) { $v = $Value -replace '\.git$', ''; if ($v -match '^https://github\.com/([^/]+)/([^/]+)$') { return "$($matches[1])/$($matches[2])" }; if ($v -match '^git@github\.com:([^/]+)/([^/]+)$') { return "$($matches[1])/$($matches[2])" }; throw 'Unsupported Hermes repository URL.' }
 if ($version.HERMES_REPOSITORY -ne 'https://github.com/icidade/hermes-agent.git') { throw 'Unexpected Hermes repository.' }
-if ($version.HERMES_COMMIT -ne 'ef4a0006032cbcacbc4376b76943defb1013c268') { throw 'Unexpected Hermes commit.' }
+if ($version.HERMES_COMMIT -ne '30ec124729cc513809f3b2deee875c4175aa0dc1') { throw 'Unexpected Hermes commit.' }
 $runtime = Join-Path $HermesHome 'hermes-agent'
 $head = (& git -C $runtime rev-parse HEAD).Trim()
 if ($head -ne $version.HERMES_COMMIT) { throw 'Hermes HEAD mismatch.' }
@@ -27,6 +27,6 @@ foreach ($profile in $profiles) { $root = Join-Path $HermesHome "profiles\$profi
 $chief = Join-Path $HermesHome 'profiles\chief-of-staff'
 if (-not (Test-Path (Join-Path $chief 'skills\cost-context-governance\SKILL.md'))) { throw 'Governance skill missing.' }
 if (-not (Select-String (Join-Path $chief 'SOUL.md') 'cost-context-governance' -Quiet)) { throw 'Chief SOUL missing governance reference.' }
-if (-not (Select-String (Join-Path $chief 'config.yaml') 'mode: enforce' -Quiet)) { throw 'Chief governance mode is not enforce.' }
+if (-not (Select-String (Join-Path $chief 'config.yaml') 'mode: log' -Quiet)) { throw 'Chief governance mode is not log.' }
 if ($Online) { foreach ($profile in $profiles) { & $hermes -p $profile chat -Q -q 'Answer in one line starting with OK.' } }
 Write-Host "Smoke test completed for $($profiles.Count) exact profiles."

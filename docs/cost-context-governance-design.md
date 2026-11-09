@@ -25,7 +25,7 @@ Implement a mandatory, provider-independent governance layer for MiniCISO that p
 - `agent/tool_guardrails.py`: existing repeated-tool/no-progress primitive that can be complemented by broader engagement governance.
 - `tools/delegate_tool.py`: child-agent creation, task context packaging, timeout/error/summary handling; best insertion point for child budget allocation, bounded child context manifests, and structured partial handoffs.
 - `model_tools.py`: tool-definition assembly; best insertion point for exact allowlist filtering and tool-schema overhead measurement.
-- `hermes_cli/config.py`: default config surface for observe/enforce/disabled modes and budget profiles.
+- `hermes_cli/config.py`: default config surface for log/block/disabled modes and budget profiles (`observe`/`enforce` remain aliases).
 
 ## Selected implementation strategy
 Use a dual-layer design:
@@ -80,7 +80,7 @@ Under the active profile:
 
 ## Scope of first implementation
 Implemented now for immediate VPS effect:
-- observe/enforce/disabled modes;
+- log/block/disabled modes, with legacy observe/enforce aliases;
 - root + child envelope accounting with file-lock persistence;
 - configurable budget profiles and QA reserve;
 - model/tool/delegation/time/context thresholds;
